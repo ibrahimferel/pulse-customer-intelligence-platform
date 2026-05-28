@@ -1,0 +1,1 @@
+halo guys aku dari fp mci, aku bakal ngamuk disini
