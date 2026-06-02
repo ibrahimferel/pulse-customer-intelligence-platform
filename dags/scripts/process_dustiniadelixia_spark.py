@@ -1,3 +1,11 @@
+# * read parquet raw
+# * null handling
+# * datatype casting
+# * joins
+# * cleaning
+# * preprocessing
+# * save processed/
+
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from clickhouse_driver import Client

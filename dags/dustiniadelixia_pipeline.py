@@ -1,3 +1,9 @@
+# fetch
+# → process_spark
+# → feature_engineering
+# → nlp
+# → warehouse_load
+
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta

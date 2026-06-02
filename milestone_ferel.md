@@ -1,11 +1,11 @@
-# FP MCI — Timeline & Milestone Plan
+# FP MCI - Timeline & Milestone Plan
 
 **Deadline:** 10 Juni 2026  
-**Constraint:** 30–31 Mei tidak bisa coding / pegang laptop.
+**Constraint:** 31 Mei tidak bisa coding / pegang laptop.
 
 ---
 
-# Phase 1 — Data Understanding & Architecture
+# Phase 1 - Data Understanding & Architecture
 
 📅 **28–29 Mei**
 
