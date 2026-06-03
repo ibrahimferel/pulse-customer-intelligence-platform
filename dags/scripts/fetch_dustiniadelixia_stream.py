@@ -17,16 +17,10 @@ SELECTED_DATASETS = [
     "order_payments.csv"
 ]
 
-
-def download_drive_file(
-    file_id,
-    output_path
-):
-
+def download_drive_file(file_id, output_path):
     url = (
         f"https://drive.google.com/uc?id={file_id}"
     )
-
     gdown.download(
         url,
         output_path,
@@ -36,15 +30,14 @@ def download_drive_file(
 
 
 def fetch_dustiniadelixia_data():
-
     print(
         "Downloading DustiniaDelixia dataset..."
     )
 
-    # LOCAL TESTING
+    # coba local testing
     raw_dir = "data_lake/raw"
 
-    # AIRFLOW VERSION NANTI:
+    # airflow
     # raw_dir = "/opt/airflow/data_lake/raw"
 
     os.makedirs(
@@ -57,9 +50,7 @@ def fetch_dustiniadelixia_data():
     )
 
     try:
-
-        # ---------- DOWNLOAD ----------
-
+        # download 
         download_drive_file(
             DRIVE_FILE_ID,
             zip_path
@@ -74,15 +65,12 @@ def fetch_dustiniadelixia_data():
             f"{os.path.getsize(zip_path)/1024/1024:.2f} MB"
         )
 
-        # ---------- EXTRACT ----------
-
+        # extract
         with zipfile.ZipFile(
             zip_path,
             "r"
         ) as z:
-
             files = z.namelist()
-
             print(
                 "\nAvailable files:"
             )
@@ -156,12 +144,14 @@ def fetch_dustiniadelixia_data():
             "\nFetch completed."
         )
 
+        os.remove(zip_path)
+        print("ZIP removed.")
+
     except Exception as e:
         print(
             f"\nFetch failed: {e}"
         )
         raise
-
 
 if __name__ == "__main__":
     fetch_dustiniadelixia_data()
