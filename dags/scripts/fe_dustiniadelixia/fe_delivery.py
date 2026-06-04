@@ -186,6 +186,33 @@ def build_delivery_features():
         )
     )
 
+    delivery_df = delivery_df.select(
+        "order_id",
+        "customer_id",
+        "customer_state",
+        "customer_city",
+
+        "order_delivered_customer_date",
+        "order_purchase_timestamp",
+        "order_estimated_delivery_date",
+        "order_status",
+
+        "payment_type",
+
+        "review_score",
+
+        "actual_delivery_days",
+        "delivery_delay_days",
+        "delay_bucket",
+
+        "purchase_month",
+
+        "cancellation_flag",
+
+        "purchase_count_per_customer",
+        "repeat_customer"
+    )
+
     output_dir = (
         "data_lake/features/"
         "delivery_features"
