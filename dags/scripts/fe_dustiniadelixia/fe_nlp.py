@@ -113,32 +113,73 @@ def build_nlp_features():
     )
 
     DELIVERY_REGEX = (
-        "delivery|delay|late|"
-        "entrega|atraso|demora|"
-        "prazo|recebi|recebido"
+        "delivery|delay|late|shipped|transit|tracking|dispatch|carrier|courier|"
+        "entrega|atraso|demora|prazo|recebi|recebido|"
+        "não chegou|nao chegou|não recebi|nao recebi|chegou|chegada|"
+        "enviado|enviaram|enviou|envio|correio|transportadora|"
+        "postado|saiu|rastreio|rastreamento|extraviado|devolvido ao remetente|"
+        "frete|pendente de entrega|fora do prazo|"
+        "atrasada|atrasado|demorou|demorado|aguardando|"
+        "não entregue|nao entregue|não recebido|nao recebido"
     )
 
     REFUND_REGEX = (
-        "refund|money|"
-        "reembolso|devolucao|"
-        "devolver|estorno"
+        "refund|money|cancel|chargeback|"
+        "reembolso|devolucao|devolver|estorno|"
+        "cancelar|cancelamento|cancelei|dinheiro de volta|devolução|"
+        "devolvi|devolvendo|reembolsar|ressarcimento|ressarcir|estornar|"
+        "aguardo estorno|cartão|crédito|pix|pagamento|cobrado|cobrado errado|"
+        "trocar|troca|substituir|substituição|substituicao"
     )
 
     DAMAGED_REGEX = (
-        "damage|broken|defect|"
-        "quebrado|defeito|"
-        "danificado|avariado"
+        "damage|broken|defect|fault|crack|defective|malfunction|burned|"
+        "quebrado|defeito|danificado|avariado|"
+        "trincado|riscado|amassado|rachado|arranhado|estragado|inutilizável|"
+        "não funciona|nao funciona|parou de funcionar|veio com defeito|"
+        "veio quebrado|produto com defeito|falha|falhou|não liga|nao liga|"
+        "não acende|nao acende|não funcional|falso|pirata|"
+        "errado|diferente|faltando peça|faltou peça|faltou parafuso|"
+        "incompleto|peça faltando|peca faltando|produto falso|não original|nao original"
     )
 
     PACKAGING_REGEX = (
-        "package|packaging|"
-        "embalagem|caixa|pacote"
+        "package|packaging|box|protection|"
+        "embalagem|caixa|pacote|"
+        "sem proteção|sem embalagem|mal embalado|embalagem danificada|"
+        "caixa amassada|caixa rasgada|caixa aberta|embalagem aberta|"
+        "sem caixa|sem manual|nota fiscal|lacre|plástico bolha|"
+        "bem embalado|embalagem original|invólucro|"
+        "embalado|embalada|amassada|rasgada|violada|sem protecao|protegido"
     )
 
     SELLER_REGEX = (
-        "seller|service|"
-        "vendedor|atendimento|"
-        "suporte|contato"
+        "seller|service|communication|response|"
+        "vendedor|atendimento|suporte|contato|"
+        "loja|assistência|SAC|chat|whatsapp|email|e-mail|"
+        "não respondeu|nao respondeu|sem resposta|ligação|telefone|"
+        "ignorado|descaso|prazo de resposta|demora na resposta|promessa|garantia|"
+        "retorno|retornar|responder|respondeu|resposta|"
+        "informaram|informação|informacao|atendente|comunicação|comunicacao"
+    )
+
+    PRODUCT_REGEX = (
+        "wrong product|different product|missing item|"
+        "produto errado|produto diferente|"
+        "veio diferente|veio outro|modelo diferente|"
+        "cor errada|tamanho errado|"
+        "faltou|faltando|incompleto|"
+        "veio apenas|recebi apenas|"
+        "não corresponde|nao corresponde|"
+        "diferente do anúncio|diferente do anunciado|"
+        "produto falso|falsificado|pirata|"
+        "peça faltando|faltam peças|"
+        "acessório faltando|item faltando|"
+        "quantidade errada|veio menos|"
+        "veio uma unidade|veio só uma|"
+        "não era o que pedi|nao era o que pedi|"
+        "produto trocado|trocaram meu produto|"
+        "cor diferente|tamanho diferente"
     )
 
     # ==========================
@@ -194,6 +235,15 @@ def build_nlp_features():
                     SELLER_REGEX
                 ),
                 "seller_communication"
+            )
+
+            .when(
+                F.col(
+                    "review_text_clean"
+                ).rlike(
+                    PRODUCT_REGEX
+                ),
+                "product_issue"
             )
 
             .otherwise(
