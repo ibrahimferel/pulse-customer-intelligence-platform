@@ -3,8 +3,6 @@ import zipfile
 import pandas as pd
 import gdown
 
-from datetime import datetime
-
 DRIVE_FILE_ID = "1BRrvsIDOk9soBlsKwWqMsS79oVBQgZtf"
 
 SELECTED_DATASETS = [
@@ -35,10 +33,10 @@ def fetch_dustiniadelixia_data():
     )
 
     # coba local testing
-    raw_dir = "data_lake/raw"
+    # raw_dir = "data_lake/raw"
 
     # airflow
-    # raw_dir = "/opt/airflow/data_lake/raw"
+    raw_dir = "/opt/airflow/data_lake/raw"
 
     os.makedirs(
         raw_dir,
@@ -72,7 +70,7 @@ def fetch_dustiniadelixia_data():
         ) as z:
             files = z.namelist()
             print(
-                "\nAvailable files:"
+                f"Found {len(files)} files"
             )
 
             print(files)
@@ -101,13 +99,6 @@ def fetch_dustiniadelixia_data():
                     )
                 )
 
-                current_time = (
-                    datetime.now()
-                    .strftime(
-                        "%Y%m%d_%H%M%S"
-                    )
-                )
-
                 dataset_dir = (
                     f"{raw_dir}/"
                     f"{dataset_name}"
@@ -118,10 +109,11 @@ def fetch_dustiniadelixia_data():
                     exist_ok=True
                 )
 
+                # write new parquet
+
                 output_path = (
                     f"{dataset_dir}/"
-                    f"{dataset_name}_"
-                    f"{current_time}.parquet"
+                    f"{dataset_name}.parquet"
                 )
 
                 df.to_parquet(

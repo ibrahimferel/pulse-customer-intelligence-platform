@@ -179,7 +179,7 @@ def build_cx_features():
         .join(
             customer_df,
             "customer_unique_id",
-            "left"
+            "inner"
         )
     )
 
@@ -248,48 +248,38 @@ def build_cx_features():
             "frequency_score",
 
             F.when(
-                F.col("frequency") >= 5,
+                F.col("frequency") >= 3,
                 1.0
             )
 
             .when(
-                F.col("frequency") == 4,
-                0.8
-            )
-
-            .when(
-                F.col("frequency") == 3,
-                0.6
-            )
-
-            .when(
                 F.col("frequency") == 2,
-                0.4
+                0.7
             )
 
-            .otherwise(0.2)
+            .otherwise(0.3)
         )
 
         .withColumn(
             "tenure_score",
 
             F.when(
-                F.col("customer_tenure_days") >= 365,
+                F.col("customer_tenure_days") >= 180,
                 1.0
             )
 
             .when(
-                F.col("customer_tenure_days") >= 180,
+                F.col("customer_tenure_days") >= 90,
                 0.8
             )
 
             .when(
-                F.col("customer_tenure_days") >= 90,
+                F.col("customer_tenure_days") >= 30,
                 0.6
             )
 
             .when(
-                F.col("customer_tenure_days") >= 30,
+                F.col("customer_tenure_days") >= 7,
                 0.4
             )
 
