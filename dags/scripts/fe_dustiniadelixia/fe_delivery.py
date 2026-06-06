@@ -18,7 +18,7 @@ def build_delivery_features():
 
     analytics_orders = (
         spark.read.parquet(
-            "data_lake/processed/analytics_orders"
+            "/opt/airflow/data_lake/processed/analytics_orders"
         )
     )
 
@@ -28,9 +28,7 @@ def build_delivery_features():
 
     delivery_df = analytics_orders
 
-    # ==================================================
     # actual_delivery_days
-    # ==================================================
 
     delivery_df = (
         delivery_df
@@ -47,9 +45,7 @@ def build_delivery_features():
         )
     )
 
-    # ==================================================
     # delivery_delay_days
-    # ==================================================
 
     delivery_df = (
         delivery_df
@@ -66,9 +62,7 @@ def build_delivery_features():
         )
     )
 
-    # ==================================================
     # delay_bucket
-    # ==================================================
 
     delivery_df = (
         delivery_df
@@ -102,9 +96,7 @@ def build_delivery_features():
         )
     )
 
-    # ==================================================
     # purchase_month
-    # ==================================================
 
     delivery_df = (
         delivery_df
@@ -117,9 +109,7 @@ def build_delivery_features():
         )
     )
 
-    # ==================================================
     # cancellation_flag
-    # ==================================================
 
     delivery_df = (
         delivery_df
@@ -139,9 +129,7 @@ def build_delivery_features():
         )
     )
 
-    # ==================================================
     # purchase_count_per_customer
-    # ==================================================
 
     purchase_count = (
         delivery_df
@@ -167,9 +155,7 @@ def build_delivery_features():
         )
     )
 
-    # ==================================================
     # repeat_customer
-    # ==================================================
 
     delivery_df = (
         delivery_df
@@ -191,31 +177,23 @@ def build_delivery_features():
         "customer_id",
         "customer_state",
         "customer_city",
-
         "order_delivered_customer_date",
         "order_purchase_timestamp",
         "order_estimated_delivery_date",
         "order_status",
-
         "payment_type",
-
         "review_score",
-
         "actual_delivery_days",
         "delivery_delay_days",
         "delay_bucket",
-
         "purchase_month",
-
         "cancellation_flag",
-
         "purchase_count_per_customer",
         "repeat_customer"
     )
 
     output_dir = (
-        "data_lake/features/"
-        "delivery_features"
+        "/opt/airflow/data_lake/features/delivery_features"
     )
 
     os.makedirs(
