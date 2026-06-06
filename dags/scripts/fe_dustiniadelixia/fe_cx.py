@@ -10,29 +10,25 @@ def build_cx_features():
         .getOrCreate()
     )
 
-    # ==========================
     # read features
-    # ==========================
 
     delivery_df = spark.read.parquet(
-        "data_lake/features/delivery_features"
+        "/opt/airflow/data_lake/features/delivery_features"
     )
 
     nlp_df = spark.read.parquet(
-        "data_lake/features/nlp_features"
+        "/opt/airflow/data_lake/features/nlp_features"
     )
 
     customer_df = spark.read.parquet(
-        "data_lake/features/customer_features"
+        "/opt/airflow/data_lake/features/customer_features"
     )
 
     analytics_orders = spark.read.parquet(
-        "data_lake/processed/analytics_orders"
+        "/opt/airflow/data_lake/processed/analytics_orders"
     )
 
-    # ==========================
     # keep required columns
-    # ==========================
 
     nlp_df = (
         nlp_df
@@ -63,9 +59,7 @@ def build_cx_features():
         .dropDuplicates()
     )
 
-    # ==========================
     # join all
-    # ==========================
 
     cx_df = (
         delivery_df
@@ -83,9 +77,7 @@ def build_cx_features():
         )
     )
 
-    # ==========================
     # late delivery flag
-    # ==========================
 
     cx_df = (
         cx_df
@@ -101,9 +93,7 @@ def build_cx_features():
         )
     )
 
-    # ==========================
     # complaint flag
-    # ==========================
 
     cx_df = (
         cx_df
@@ -119,9 +109,7 @@ def build_cx_features():
         )
     )
 
-    # ==========================
     # fill missing values
-    # ==========================
 
     cx_df = (
         cx_df
@@ -135,9 +123,7 @@ def build_cx_features():
         )
     )
 
-    # ==========================
     # customer aggregation
-    # ==========================
 
     customer_cx = (
         cx_df
@@ -186,9 +172,7 @@ def build_cx_features():
     customer_cx = (
         customer_cx
 
-        # -------
         # review
-        # -------
 
         .withColumn(
             "review_component",
@@ -197,9 +181,7 @@ def build_cx_features():
             ) / 5.0
         )
 
-        # --------
         # delivery
-        # --------
 
         .withColumn(
             "delivery_component",
@@ -228,9 +210,7 @@ def build_cx_features():
             .otherwise(0.3)
         )
 
-        # ---------
         # complaint
-        # ---------
 
         .withColumn(
             "complaint_component",
@@ -240,9 +220,7 @@ def build_cx_features():
             )
         )
 
-        # ----------------------
-        # loyalty sub-scores
-        # ----------------------
+        # loyalty sub-scores        
 
         .withColumn(
             "frequency_score",
@@ -312,9 +290,7 @@ def build_cx_features():
             .otherwise(0.2)
         )
 
-        # --------
         # loyalty
-        # --------
 
         .withColumn(
             "loyalty_component",
@@ -328,9 +304,7 @@ def build_cx_features():
             )
         )
 
-        # ----------
         # cx score
-        # ----------
 
         .withColumn(
             "cx_score",
@@ -347,9 +321,7 @@ def build_cx_features():
         )
     )
 
-    # ==========================
     # cx category
-    # ==========================
 
     customer_cx = (
         customer_cx
@@ -388,7 +360,7 @@ def build_cx_features():
         .write
         .mode("overwrite")
         .parquet(
-            "data_lake/features/cx_features"
+            "/opt/airflow/data_lake/features/cx_features"
         )
     )
 
