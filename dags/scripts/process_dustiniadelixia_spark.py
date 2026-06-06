@@ -29,7 +29,7 @@ def process_dustiniadelixia():
         ) \
         .getOrCreate()
 
-    raw_dir = "data_lake/raw"
+    raw_dir = "/opt/airflow/data_lake/raw"
 
     print("Reading raw parquet...")
 
@@ -264,7 +264,7 @@ def process_dustiniadelixia():
     )
 
     processed_dir = (
-        "data_lake/processed"
+        "/opt/airflow/data_lake/processed"
     )
 
     os.makedirs(
