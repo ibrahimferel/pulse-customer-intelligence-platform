@@ -11,16 +11,14 @@ def build_customer_features():
     )
 
     processed_dir = (
-        "data_lake/processed"
+        "/opt/airflow/data_lake/processed"
     )
 
     analytics_orders = spark.read.parquet(
         f"{processed_dir}/analytics_orders"
     )
 
-    # ==========================
     # delivered orders only
-    # ==========================
 
     customer_df = (
         analytics_orders
@@ -29,9 +27,7 @@ def build_customer_features():
         )
     )
 
-    # ==========================
     # customer aggregation
-    # ==========================
 
     customer_features = (
         customer_df
@@ -84,9 +80,7 @@ def build_customer_features():
         )
     )
 
-    # ==========================
     # recency
-    # ==========================
 
     max_date = (
         customer_df
@@ -112,9 +106,7 @@ def build_customer_features():
         )
     )
 
-    # ==========================
     # tenure
-    # ==========================
 
     customer_features = (
         customer_features
@@ -132,9 +124,7 @@ def build_customer_features():
         )
     )
 
-    # ==========================
     # repeat customer
-    # ==========================
 
     customer_features = (
         customer_features
@@ -158,7 +148,7 @@ def build_customer_features():
     )
 
     output_path = (
-        "data_lake/features/customer_features"
+        "/opt/airflow/data_lake/features/customer_features"
     )
 
     (
