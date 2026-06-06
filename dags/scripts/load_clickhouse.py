@@ -52,20 +52,15 @@ def create_tables(client):
             CREATE TABLE IF NOT EXISTS analytics.customer_features
             (
                 customer_unique_id String,
-
                 frequency UInt32,
                 monetary Float64,
                 avg_order_value Float64,
-
                 first_purchase_date Nullable(DateTime),
                 last_purchase_date Nullable(DateTime),
-
                 avg_review_score Nullable(Float64),
                 preferred_payment_type String,
-
                 recency_days Int32,
                 customer_tenure_days Int32,
-
                 repeat_customer UInt8
             )
             ENGINE = MergeTree()
@@ -76,25 +71,20 @@ def create_tables(client):
             (
                 order_id String,
                 customer_id String,
-
                 customer_state String,
                 customer_city String,
-
+                order_delivered_customer_date Nullable(DateTime),
+                order_purchase_timestamp Nullable(DateTime),
+                order_estimated_delivery_date Nullable(DateTime),
+                order_status String,
                 payment_type String,
-
                 review_score Int32,
-
                 actual_delivery_days Int32,
                 delivery_delay_days Int32,
-
                 delay_bucket String,
-
                 purchase_month String,
-
                 cancellation_flag UInt8,
-
                 purchase_count_per_customer UInt32,
-
                 repeat_customer UInt8
             )
             ENGINE = MergeTree()
@@ -104,19 +94,12 @@ def create_tables(client):
             CREATE TABLE IF NOT EXISTS analytics.payment_features
             (
                 order_id String,
-
                 payment_count_per_order UInt32,
-
                 payment_value Float64,
-
                 payment_installments UInt32,
-
                 payment_type String,
-
                 multi_payment_flag UInt8,
-
                 installment_group String,
-
                 high_value_payment_flag UInt8
             )
             ENGINE = MergeTree()
@@ -126,44 +109,27 @@ def create_tables(client):
             CREATE TABLE IF NOT EXISTS analytics.nlp_features
             (
                 order_id String,
-
                 review_score Int32,
-
                 review_comment_message String,
-
                 review_text_clean String,
-
                 has_text UInt8,
-
                 complaint_topic String
-
             )
-
             ENGINE = MergeTree()
-
             ORDER BY order_id;
         ''')
         client.execute('''
             CREATE TABLE IF NOT EXISTS analytics.geo_features
             (
-
                 customer_id String,
-
                 customer_unique_id String,
-
                 customer_zip_code_prefix UInt32,
-
                 customer_city String,
-
                 customer_state String,
-
                 geolocation_lat Nullable(Float64),
                 geolocation_lng Nullable(Float64)
-
             )
-
             ENGINE = MergeTree()
-
             ORDER BY customer_unique_id;
         ''')
         client.execute('''
