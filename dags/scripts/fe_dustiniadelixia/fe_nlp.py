@@ -11,7 +11,7 @@ def build_nlp_features():
     )
 
     processed_dir = (
-        "data_lake/processed"
+        "/opt/airflow/data_lake/processed"
     )
 
     analytics_orders = spark.read.parquet(
@@ -27,9 +27,7 @@ def build_nlp_features():
         )
     )
 
-    # ==========================
     # review_text_clean
-    # ==========================
 
     nlp_df = (
         nlp_df
@@ -94,9 +92,7 @@ def build_nlp_features():
         )
     )
 
-    # ==========================
     # has_text
-    # ==========================
 
     nlp_df = (
         nlp_df
@@ -182,9 +178,7 @@ def build_nlp_features():
         "cor diferente|tamanho diferente"
     )
 
-    # ==========================
     # complaint_topic
-    # ==========================
 
     nlp_df = (
         nlp_df
@@ -253,7 +247,7 @@ def build_nlp_features():
     )
 
     output_path = (
-        "data_lake/features/nlp_features"
+        "/opt/airflow/data_lake/features/nlp_features"
     )
 
     (
