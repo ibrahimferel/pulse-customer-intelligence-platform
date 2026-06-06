@@ -9,15 +9,13 @@ def build_payment_features():
         .getOrCreate()
     )
 
-    raw_dir = "data_lake/raw"
+    raw_dir = "/opt/airflow/data_lake/raw"
 
     payments_df = spark.read.parquet(
         f"{raw_dir}/order_payments/*.parquet"
     )
 
-    # ==================================
     # aggregate payment
-    # ==================================
 
     payment_features = (
         payments_df
@@ -49,9 +47,7 @@ def build_payment_features():
         )
     )
 
-    # ==================================
     # multi_payment_flag
-    # ==================================
 
     payment_features = (
         payment_features
@@ -67,9 +63,7 @@ def build_payment_features():
         )
     )
 
-    # ==================================
     # installment_group
-    # ==================================
 
     payment_features = (
         payment_features
@@ -103,9 +97,7 @@ def build_payment_features():
         )
     )
 
-    # ==================================
     # high_value_payment_flag
-    # ==================================
 
     q95 = (
         payment_features
@@ -131,7 +123,7 @@ def build_payment_features():
     )
 
     output_path = (
-        "data_lake/features/payment_features"
+        "/opt/airflow/data_lake/features/payment_features"
     )
 
     (
