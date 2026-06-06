@@ -11,12 +11,10 @@ def build_seller_features():
     )
 
     seller_df = spark.read.parquet(
-        "data_lake/processed/seller_proximity"
+        "/opt/airflow/data_lake/processed/seller_proximity"
     )
 
-    # ==========================
     # seller count per order
-    # ==========================
 
     seller_count_df = (
         seller_df
@@ -39,9 +37,7 @@ def build_seller_features():
         )
     )
 
-    # ==========================
     # multi seller order flag
-    # ==========================
 
     seller_df = (
         seller_df
@@ -57,9 +53,7 @@ def build_seller_features():
         )
     )
 
-    # ==========================
     # interstate order
-    # ==========================
 
     seller_df = (
         seller_df
@@ -73,9 +67,7 @@ def build_seller_features():
         )
     )
 
-    # ==========================
     # freight ratio
-    # ==========================
 
     seller_df = (
         seller_df
@@ -95,9 +87,7 @@ def build_seller_features():
         )
     )
 
-    # ==========================
     # high freight flag
-    # ==========================
 
     seller_df = (
         seller_df
@@ -111,9 +101,7 @@ def build_seller_features():
         )
     )
 
-    # ==========================
     # freight bucket
-    # ==========================
 
     seller_df = (
         seller_df
@@ -136,9 +124,7 @@ def build_seller_features():
         )
     )
 
-    # ==========================
     # keep useful columns
-    # ==========================
 
     seller_df = (
         seller_df
@@ -166,7 +152,7 @@ def build_seller_features():
     )
 
     output_path = (
-        "data_lake/features/seller_features"
+        "/opt/airflow/data_lake/features/seller_features"
     )
 
     (
