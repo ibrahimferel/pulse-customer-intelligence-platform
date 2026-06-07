@@ -134,7 +134,7 @@ def build_delivery_features():
     purchase_count = (
         delivery_df
         .groupBy(
-            "customer_id"
+            "customer_unique_id"
         )
         .agg(
             F.countDistinct(
