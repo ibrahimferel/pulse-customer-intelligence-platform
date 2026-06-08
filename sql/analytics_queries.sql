@@ -130,7 +130,6 @@ SELECT
     ROUND(AVG(cx_score), 2)                              AS avg_cx_score,
     ROUND(MIN(cx_score), 2)                              AS min_cx_score,
     ROUND(MAX(cx_score), 2)                              AS max_cx_score,
-    -- breakdown per komponen
     ROUND(AVG(review_component) * 100, 2)                AS avg_review_component_pct,
     ROUND(AVG(delivery_component) * 100, 2)              AS avg_delivery_component_pct,
     ROUND(AVG(complaint_component) * 100, 2)             AS avg_complaint_component_pct,
