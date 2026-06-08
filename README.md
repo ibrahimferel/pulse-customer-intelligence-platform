@@ -1,375 +1,391 @@
-# FP MCI - Timeline & Milestone Plan
+# DustiniaDelixia Customer Performance Analytics
 
-**Deadline:** 10 Juni 2026  
-**Constraint:** 31 Mei tidak bisa coding / pegang laptop.
+## 📌 Project Overview
 
----
+DustiniaDelixia Customer Performance Analytics merupakan platform analitik pelanggan end-to-end yang dirancang untuk mengubah data transaksi e-commerce menjadi insight bisnis yang dapat digunakan dalam pengambilan keputusan.
 
-# Phase 1 - Data Understanding & Architecture
+Project ini membangun data pipeline otomatis mulai dari proses ingest data, transformasi, feature engineering, penyimpanan ke data warehouse, hingga visualisasi dashboard analytics menggunakan Apache Airflow, Apache Spark, ClickHouse, dan Metabase.
 
-📅 **28–29 Mei**
-
-## Objective
-Finalisasi scope analytics, dataset, dan desain pipeline.
-
-## Deliverables
-
-- [ ] Finalisasi analytics scope
-- [ ] Dataset selection final
-- [ ] Dataset relationship mapping
-- [ ] ERD / join plan sederhana
-- [ ] Project architecture draft
-- [ ] Folder structure final
-
-## Fokus
-
-- memahami relasi antar dataset
-- menentukan join strategy
-- menentukan KPI analytics
-- menentukan feature engineering utama
-
-## Output Minimum
-
-Join dasar berhasil:
-
-```text
-orders + reviews + payments + customers
-```
+Melalui platform ini, perusahaan dapat memahami karakteristik pelanggan, mengevaluasi customer experience, menganalisis loyalitas pelanggan, serta mengidentifikasi faktor-faktor yang memengaruhi performa bisnis.
 
 ---
 
-# Phase 2 — Data Pipeline & Cleaning
+## 👨‍💻 Author
 
-📅 **1–2 Juni**
-
-*(30–31 Mei skip total)*
-
-## Objective
-
-Membangun pipeline ingestion dan preprocessing.
-
-## Deliverables
-
-- [ ] fetch script stabil
-- [ ] parquet/data lake berjalan
-- [ ] Spark processing berjalan
-- [ ] cleaned analytics dataset
-
-## Feature Engineering Wajib
-
-- [ ] delivery_delay_days
-- [ ] repeat_customer_indicator
-- [ ] avg_order_value
-- [ ] purchase_count
-- [ ] sentiment-ready review text
-
-## Fokus
-
-Belum perlu dashboard.
-
-Prioritas utama:
-
-```text
-analytics dataset final sudah bersih
-```
+Ibrahim Ferel  
+Department of Informatics Engineering  
+Institut Teknologi Sepuluh Nopember (ITS)
 
 ---
 
-# Phase 3 — NLP & Sentiment Analysis
+# 🎯 Business Problem
 
-📅 **3–4 Juni**
+Perusahaan e-commerce menghasilkan data transaksi dalam jumlah besar setiap harinya. Namun, data tersebut sering kali tersebar di berbagai sumber dan belum diolah menjadi informasi yang mudah digunakan untuk pengambilan keputusan.
 
-## Objective
+Beberapa tantangan yang ingin diselesaikan melalui proyek ini:
 
-Menyelesaikan seluruh NLP pipeline.
-
-## Deliverables
-
-### Keyword Extraction
-
-- [ ] KeyBERT keyword extraction
-
-### Sentiment Analysis
-
-- [ ] TextBlob / VADER sentiment score
-- [ ] optional transformer comparison
-
-### Complaint Topic Mining
-
-- [ ] delivery complaints
-- [ ] refund complaints
-- [ ] damaged product complaints
-- [ ] packaging complaints
-- [ ] seller communication complaints
-
-## Prioritas
-
-### MUST
-
-- [ ] KeyBERT
-- [ ] Sentiment score
-
-### OPTIONAL
-
-- [ ] topic clustering otomatis
-
-Jika waktu mepet:
-manual keyword grouping masih acceptable.
+- Sulit mengidentifikasi pelanggan loyal.
+- Sulit memahami penyebab churn pelanggan.
+- Belum tersedia customer experience measurement yang terukur.
+- Sulit mengetahui faktor-faktor yang memengaruhi repeat order.
+- Belum tersedia dashboard analitik terintegrasi untuk stakeholder bisnis.
 
 ---
 
-# Phase 4 — Core Analytics & Insight Building
+# 🎯 Project Objectives
 
-📅 **5–6 Juni**
+Proyek ini memiliki beberapa tujuan utama:
 
-## Objective
-
-Menyelesaikan seluruh analytics utama.
-
-## Deliverables
-
-### MUST HAVE
-
-- [ ] Delivery Impact Analysis
-- [ ] Customer Segmentation
-- [ ] NLP Review Analysis
-
-### NICE TO HAVE
-
-- [ ] Geo Analytics
-- [ ] Payment Behavior Analysis
-- [ ] Seller Proximity Analysis
-
-## Fokus
-
-Mulai menjawab:
-
-```text
-"So what?"
-```
-
-Bukan hanya membuat visualisasi.
-
-Contoh pertanyaan insight:
-
-- apakah delivery delay menurunkan review score?
-- apakah sentiment positif berkorelasi dengan retention?
-- siapa customer loyal?
-- state mana paling bermasalah?
-- apakah seller proximity mempengaruhi CX?
+1. Membangun data pipeline end-to-end berbasis Airflow.
+2. Mengotomatisasi proses ingest dan transformasi data.
+3. Melakukan feature engineering untuk kebutuhan analytics.
+4. Menyimpan analytical dataset pada ClickHouse.
+5. Mengembangkan dashboard customer analytics.
+6. Menghasilkan Customer Experience Score (CX Score).
+7. Melakukan customer segmentation menggunakan pendekatan RFM.
+8. Melakukan analisis review pelanggan menggunakan NLP.
 
 ---
 
-# Phase 5 — Dashboard & Visualization
+# 📊 Dataset
 
-📅 **7 Juni**
+Dataset yang digunakan berasal dari transaksi e-commerce dan terdiri dari beberapa tabel utama:
 
-## Objective
-
-Dashboard final usable.
-
-## Deliverables
-
-- [ ] dashboard final
-- [ ] visual hierarchy clean
-- [ ] filters berfungsi
-- [ ] visual redundancy dikurangi
-
-## Note
-
-Lebih baik:
-
-```text
-8 chart bagus + insight kuat
-```
-
-daripada:
-
-```text
-20 chart random
-```
+| Dataset | Description |
+|----------|------------|
+| orders | Informasi transaksi pelanggan |
+| order_items | Detail item pada setiap transaksi |
+| customers | Informasi pelanggan |
+| sellers | Informasi seller |
+| geolocation | Data lokasi pelanggan |
+| order_reviews | Review pelanggan |
+| order_payments | Informasi pembayaran |
 
 ---
 
-# Phase 6 — README & Portfolio Polish
+# 🛠 Technology Stack
 
-📅 **8 Juni**
-
-## Objective
-
-Merapikan project untuk GitHub portfolio.
-
-## README Structure
-
-- [ ] project overview
-- [ ] business problem
-- [ ] analytics objectives
-- [ ] dataset description
-- [ ] architecture pipeline
-- [ ] folder structure
-- [ ] preprocessing pipeline
-- [ ] dashboard preview
-- [ ] key insights
-- [ ] tech stack
-- [ ] future work
+| Layer | Technology |
+|---------|---------|
+| Programming Language | Python |
+| Orchestration | Apache Airflow |
+| Distributed Processing | Apache Spark |
+| Data Storage | Parquet |
+| Data Warehouse | ClickHouse |
+| Dashboarding | Metabase |
+| NLP | KeyBERT, DistilBERT |
+| Containerization | Docker |
 
 ---
 
-# Phase 7 — IEEE Paper Writing
+# 🏗 System Architecture
 
-📅 **8–9 Juni**
+text Google Drive Dataset         │         ▼ Fetch Layer         │         ▼ Raw Data Lake         │         ▼ Spark Processing Layer         │         ▼ Processed Data Layer         │         ▼ Feature Engineering Layer         │         ▼ ClickHouse Data Warehouse         │         ▼ Metabase Dashboard 
 
-## Objective
-
-Paper selesai 80–90%.
-
-## Paper Structure
-
-### 1. Introduction
-
-- business background
-- importance of customer experience analytics
-
-### 2. Methodology
-
-- datasets
-- preprocessing
-- NLP pipeline
-- customer segmentation
-- CX score methodology
-
-### 3. Results & Discussion
-
-- analytics findings
-- dashboard interpretation
-- insight discussion
-
-### 4. Conclusion
-
-- findings summary
-- future improvement
-
-## Fokus
-
-Prioritaskan:
-
-```text
-jelas + runtut + insight-driven
-```
+Tambahkan diagram architecture (.png/.jpg) pada bagian ini.
 
 ---
 
-# Phase 8 — Final Buffer & Debugging
+# 🔄 Data Pipeline Workflow
 
-📅 **10 Juni**
+Pipeline dijalankan menggunakan Apache Airflow.
 
-## Objective
+Tahapan utama pipeline:
 
-Final checking.
+1. Fetch Data
+2. Process Data
+3. Feature Engineering
+4. Customer Experience Scoring
+5. Load to ClickHouse
+6. Dashboard Visualization
 
-## Checklist
+Pipeline berjalan secara otomatis melalui DAG Airflow.
 
-- [ ] dashboard aman
-- [ ] query aman
-- [ ] README selesai
-- [ ] paper formatting benar
-- [ ] screenshot lengkap
-- [ ] repo clean
-- [ ] requirements.txt
-- [ ] final testing
+Tambahkan screenshot DAG Airflow di sini.
 
 ---
 
-# Priority System
+# 🗄 Data Lake Design
 
-## Tier 1 — Wajib Ada
-
-Jika waktu mepet, ini harus selesai.
-
-- [ ] Delivery Impact Analysis
-- [ ] Sentiment Analysis
-- [ ] Customer Segmentation
-- [ ] Dashboard
-- [ ] README
+text data_lake/ │ ├── raw/ │ ├── processed/ │ └── features/ 
 
 ---
 
-## Tier 2 — Kalau Masih Ada Waktu
+## Raw Layer
 
-- [ ] Geo Analytics
-- [ ] Payment Behavior
-- [ ] Seller Proximity
-- [ ] CX Score
+Berisi dataset mentah yang telah dikonversi menjadi format Parquet.
 
----
-
-## Tier 3 — Stretch Goal
-
-- [ ] Transformer sentiment model
-- [ ] Advanced topic clustering
-- [ ] Interactive heatmap
-- [ ] Advanced complaint mining
+text raw/ ├── orders ├── order_items ├── customers ├── sellers ├── geolocation ├── order_reviews └── order_payments 
 
 ---
 
-# Final Reminder
+## Processed Layer
 
-```text
-Insight > Complexity
-```
+Dataset hasil integrasi dan transformasi awal.
 
-Project analytics yang kuat bukan yang:
+text processed/ ├── analytics_orders ├── customer_geo └── seller_proximity 
 
-- model paling rumit
-- dashboard paling ramai
+---
 
-Tetapi yang punya:
+## Feature Layer
 
-- problem statement jelas
-- pipeline rapi
-- insight kuat
-- stakeholder relevance
-- storytelling yang bagus
+Dataset hasil feature engineering yang siap digunakan untuk analitik.
 
-SOURCE DATA
-(CSV/API)
+text features/ ├── customer_features ├── delivery_features ├── payment_features ├── nlp_features ├── seller_features └── cx_features 
 
-     ↓
+---
 
-fetch_dustiniadelixia_stream.py
+# ⚙ Feature Engineering
 
-     ↓
+## Customer Features
 
-DATA LAKE
+| Feature | Description |
+|----------|------------|
+| frequency | Total transaksi pelanggan |
+| monetary | Total spending |
+| avg_order_value | Nilai rata-rata transaksi |
+| recency_days | Hari sejak transaksi terakhir |
+| customer_tenure_days | Lama menjadi pelanggan |
+| repeat_customer | Indikator repeat order |
 
-orders/
-reviews/
-customers/
-products/
+---
 
-     ↓
+## Delivery Features
 
-process_dustiniadelixia_spark.py
+| Feature | Description |
+|----------|------------|
+| actual_delivery_days | Lama pengiriman aktual |
+| delivery_delay_days | Keterlambatan pengiriman |
+| delay_bucket | Kategori keterlambatan |
+| cancellation_flag | Status pembatalan |
+| purchase_count_per_customer | Total transaksi customer |
 
-cleaning
-joins
-feature engineering
-analytics
+---
 
-     ↓
+## Payment Features
 
-nlp_keyword_extraction.py
+| Feature | Description |
+|----------|------------|
+| payment_type | Metode pembayaran |
+| payment_installments | Jumlah cicilan |
+| payment_count_per_order | Jumlah pembayaran |
+| high_value_payment_flag | Indikator transaksi bernilai tinggi |
 
-keyword extraction
-review analysis
+---
 
-     ↓
+## NLP Features
 
-warehouse/dashboard
+| Feature | Description |
+|----------|------------|
+| review_text_clean | Teks review hasil preprocessing |
+| complaint_topic | Kategori complaint |
+| has_text | Review berisi teks atau tidak |
 
-     ↓
+---
 
-Metabase / PowerBI / dashboard
+## Seller Features
 
-Saya sengaja menjaga scope tetap customer-centric. Namun dataset ini sebenarnya juga memungkinkan extension ke operational analytics seperti seller reliability atau fulfillment analysis apabila ingin memperluas stakeholder coverage.
+| Feature | Description |
+|----------|------------|
+| same_state | Customer dan seller satu provinsi |
+| interstate_order | Transaksi antar provinsi |
+| freight_ratio | Rasio ongkir terhadap harga |
+| freight_bucket | Kategori ongkir |
 
+---
+
+## CX Features
+
+| Feature | Description |
+|----------|------------|
+| avg_review_score | Rata-rata rating |
+| complaint_rate | Persentase complaint |
+| late_delivery_rate | Persentase keterlambatan |
+| cx_score | Customer Experience Score |
+| cx_category | Segmentasi CX |
+
+---
+
+# ⭐ Customer Experience Score
+
+Customer Experience Score (CX Score) digunakan untuk mengukur kualitas pengalaman pelanggan.
+
+Komponen perhitungan:
+
+text CX Score = 40% Review Score + 30% Delivery Performance + 20% Complaint Analysis + 10% Loyalty Score 
+
+Kategori CX:
+
+| Category | Score Range |
+|----------|------------|
+| Excellent | ≥ 90 |
+| Good | 70 – 89 |
+| Fair | 50 – 69 |
+| Poor | < 50 |
+
+---
+
+# 📈 Dashboard Analytics
+
+## Dashboard 1 — Customer Performance Overview
+
+Menampilkan:
+
+- Total Revenue
+- Average Order Value
+- Total Customer
+- Revenue Trend
+- Revenue by State
+
+---
+
+## Dashboard 2 — Customer Segmentation
+
+Menampilkan:
+
+- Frequency Analysis
+- Monetary Analysis
+- Recency Analysis
+- Retention Segment
+- Loyal Customer Segment
+
+---
+
+## Dashboard 3 — Customer Experience Analytics
+
+Menampilkan:
+
+- CX Score Distribution
+- Review Distribution
+- Complaint Topic Analysis
+- Customer Experience Category
+
+---
+
+## Dashboard 4 — Customer Behavior Drivers
+
+Menampilkan:
+
+- Delivery vs Repeat Customer
+- Payment vs Loyalty
+- Customer Lifecycle Analysis
+
+---
+
+## Dashboard 5 — Geo & Seller Analytics
+
+Menampilkan:
+
+- Customer Distribution Map
+- Revenue by State
+- Seller Performance
+- Freight Analysis
+
+Tambahkan screenshot dashboard pada setiap section.
+
+---
+
+# 🤖 NLP Review Analytics
+
+Review pelanggan dianalisis menggunakan pendekatan NLP.
+
+Tahapan:
+
+1. Text Cleaning
+2. Text Normalization
+3. Complaint Classification
+4. Keyword Extraction (KeyBERT)
+5. Sentiment Analysis (DistilBERT)
+
+Output:
+
+- Complaint Topic Classification
+- Customer Sentiment
+- Top Keywords
+- Customer Feedback Insights
+
+---
+
+# 📏 Project KPI
+
+Keberhasilan proyek diukur menggunakan KPI berikut:
+
+| Program | Status |
+|----------|----------|
+| Data Engineering Pipeline | Completed |
+| Customer Performance Dashboard | Completed |
+| Customer Segmentation Dashboard | Completed |
+| Customer Experience Dashboard | Completed |
+| Customer Behavior Dashboard | Completed |
+| Geo Analytics Dashboard | Completed |
+
+---
+
+# ⚠ Challenges & Solutions
+
+## Challenge 1 — Customer Identity Mapping
+
+Problem
+
+customer_id tidak konsisten antar transaksi.
+
+Solution
+
+Menggunakan customer_unique_id sebagai customer master key.
+
+---
+
+## Challenge 2 — ClickHouse Datetime Loading
+
+Problem
+
+Error:
+
+text NaTType does not support astimezone 
+
+Solution
+
+Melakukan konversi Spark Timestamp menjadi String sebelum proses insert ke ClickHouse.
+
+---
+
+## Challenge 3 — Feature Dependency Management
+
+Problem
+
+Beberapa feature bergantung pada hasil feature engineering lainnya.
+
+Solution
+
+Mengelola dependency menggunakan Apache Airflow DAG.
+
+---
+
+# 🚀 Future Improvements
+
+Pengembangan lanjutan yang dapat dilakukan:
+
+- Real-time Streaming Pipeline
+- Churn Prediction Model
+- Customer Lifetime Value Prediction
+- Product Recommendation System
+- Advanced Sentiment Analysis
+- Customer Clustering menggunakan Machine Learning
+- Real-Time Dashboard Monitoring
+
+---
+
+# 📚 References
+
+- Apache Airflow Documentation
+- Apache Spark Documentation
+- ClickHouse Documentation
+- Metabase Documentation
+- KeyBERT Documentation
+- HuggingFace Transformers Documentation
+
+---
+
+# 🤝 Acknowledgement
+
+Project ini dikembangkan sebagai bagian dari implementasi Data Engineering, Data Analytics, dan Customer Intelligence Platform pada studi kasus e-commerce

@@ -50,28 +50,12 @@ def build_cx_features():
         )
     )
 
-    customer_lookup = (
-        analytics_orders
-        .select(
-            "order_id",
-            "customer_unique_id"
-        )
-        .dropDuplicates()
-    )
-
     # join all
 
     cx_df = (
         delivery_df
-
         .join(
             nlp_df,
-            "order_id",
-            "left"
-        )
-
-        .join(
-            customer_lookup,
             "order_id",
             "left"
         )

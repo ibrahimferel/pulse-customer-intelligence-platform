@@ -150,7 +150,7 @@ def build_delivery_features():
         delivery_df
         .join(
             purchase_count,
-            "customer_id",
+            "customer_unique_id",
             "left"
         )
     )
@@ -175,6 +175,7 @@ def build_delivery_features():
     delivery_df = delivery_df.select(
         "order_id",
         "customer_id",
+        "customer_unique_id",
         "customer_state",
         "customer_city",
         "order_delivered_customer_date",

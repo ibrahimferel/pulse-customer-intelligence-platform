@@ -103,6 +103,7 @@ def create_tables(client):
         (
             order_id                        String,
             customer_id                     Nullable(String),
+            customer_unique_id              Nullable(String),
             customer_state                  Nullable(String),
             customer_city                   Nullable(String),
             order_delivered_customer_date   Nullable(String),
