@@ -293,7 +293,7 @@ ORDER BY rows DESC;
 
 ---
 
-## 📈 4. Overview Dashboard Analytics
+## 4. Overview Dashboard Analytics
 
 Dashboard Metabase dibagi ke dalam **5 halaman utama**, masing-masing memetakan langsung ke program kerja KPI.
 
@@ -389,7 +389,7 @@ FROM analytics.customer_features
 GROUP BY frequency
 ORDER BY frequency ASC;
 ```
-![alt text](image-14.png)-
+![alt text](image-14.png)
 
 ---
 
