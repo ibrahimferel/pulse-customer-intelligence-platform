@@ -306,7 +306,7 @@ Dashboard Metabase dibagi ke dalam **5 halaman utama**, masing-masing memetakan 
 
 Halaman ini menyajikan ringkasan KPI bisnis tingkat atas: revenue, customer base, dan tren waktu sebagai entry point analisis.
 
-> *Screenshot Customer Performance Overview dashboard*
+*Screenshot Customer Performance Overview dashboard*
 
 ![alt text](image-8.png)
 
@@ -364,7 +364,7 @@ ORDER BY d.purchase_month ASC;
 
 Halaman ini menganalisis karakteristik pelanggan melalui dimensi **Frequency**, **Monetary**, dan **Recency** (FRM) untuk mendukung strategi segmentasi yang tepat sasaran.
 
-> *Screenshot Customer Segmentation dashboard*
+*Screenshot Customer Segmentation dashboard*
 
 ![alt text](image-12.png)
 ![alt text](image-13.png)
@@ -467,7 +467,7 @@ LIMIT 200;
 
 Halaman ini mengevaluasi pengalaman pelanggan melalui empat dimensi: review score, complaint rate, delivery performance, dan loyalty, dikombinasikan menjadi satu **CX Score (0–100)**.
 
-> *Screenshot Customer Experience Analytics dashboard*
+*Screenshot Customer Experience Analytics dashboard*
 
 ![alt text](image-18.png)
 ![alt text](image-19.png)
@@ -572,11 +572,11 @@ ORDER BY avg_cx_score DESC;
 
 ---
 
-## 🔍 8. Customer Behavior Drivers
+## 8. Customer Behavior Drivers
 
 Halaman ini menganalisis faktor-faktor yang memengaruhi loyalitas dan retensi pelanggan — dari pola keterlambatan pengiriman, metode pembayaran, hingga siklus hidup customer.
 
-> *Screenshot Customer Behavior Drivers dashboard*
+*Screenshot Customer Behavior Drivers dashboard*
 
 ![alt text](image-26.png)
 ![alt text](image-27.png)
@@ -659,11 +659,11 @@ ORDER BY MIN(recency_days) ASC;
 
 ---
 
-## 🗺️ 9. Geo & Seller Analytics
+## 9. Geo & Seller Analytics
 
 Halaman ini menganalisis distribusi geografis pelanggan dan kinerja seller per region untuk mendukung keputusan ekspansi pasar dan optimalisasi logistik.
 
-> *Screenshot Geo & Seller Analytics dashboard*
+*Screenshot Geo & Seller Analytics dashboard*
 
 ![alt text](image-32.png)
 
@@ -723,7 +723,7 @@ LIMIT 20;
 
 ## 10. NLP: Keyword Extraction & Sentiment Score *(Coming Soon)*
 
-> ⚠️ **Fitur ini masih dalam progress pengembangan.**
+**Fitur ini masih dalam progress pengembangan.**
 
 Rencana implementasi menggunakan:
 
