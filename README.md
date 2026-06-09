@@ -70,6 +70,8 @@ Platform ini menjawab pertanyaan bisnis kritis seperti:
 
 Dataset yang digunakan adalah **Olist Brazil E-Commerce Dataset** dengan 7 file CSV:
 
+![alt text](image-35.png)
+
 1. orders.csv          
 2. order_items.csv     
 3. order_payments.csv

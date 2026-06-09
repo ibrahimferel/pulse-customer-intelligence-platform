@@ -123,9 +123,7 @@ def build_seller_features():
             )
         )
     )
-
-    # keep useful columns
-
+    
     seller_df = (
         seller_df
         .select(
