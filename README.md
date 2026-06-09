@@ -37,6 +37,7 @@
 <table align="center">
   <tr>
     <td align="center" width="320">
+      <img src="ferel.jpg" alt="Ibrahim Ferel" width="180"><br><br>
       <b>Ibrahim Ferel</b><br>
       <code>5025241049</code>
     </td>
@@ -63,7 +64,7 @@ Platform ini menjawab pertanyaan bisnis kritis seperti:
 | Orchestration | Apache Airflow | DAG scheduling & monitoring |
 | Warehouse | ClickHouse | OLAP storage & query engine |
 | Visualization | Metabase | Interactive dashboard |
-| NLP | DistilBERT + KeyBERT | Sentiment & keyword extraction *(coming soon)* |
+| NLP | DistilBERT + KeyBERT | Sentiment & keyword extraction |
 | Infrastructure | Docker Compose | Containerized deployment (Penyesuaian Settingan Docker dengan Modul Hands On) |
 
 ### Dataset
@@ -86,19 +87,19 @@ Dataset yang digunakan adalah **Olist Brazil E-Commerce Dataset** dengan 7 file 
 
 KPI project ini dibagi ke dalam **6 Program Kerja** dengan total bobot program = 1.0.
 
-![alt text](image.png)
+![alt text](image-36.png)
 
 ### Rekap KPI
 
 | Program Kerja | Bobot | Status |
 |---|---|---|
-| Data Engineering Pipeline |  | ✅ Done |
-| Customer Performance Overview |  | ✅ Done |
-| Customer Segmentation | | ✅ Done |
-| Customer Experience Analytics | | ✅ Done |
-| Customer Behavior Drivers Dashboard | | ✅ Done |
-| Geo & Seller Analytics Dashboard | | ✅ Done |
-| NLP: Keyword Extraction & Sentiment Score | | ✅ Done |
+| Data Engineering Pipeline |0.25| Done |
+| Customer Performance Overview |0.1| Done |
+| Customer Segmentation |0.1| Done |
+| Customer Experience Analytics |0.15| Done |
+| Customer Behavior Drivers Dashboard |0.15| Done |
+| Geo & Seller Analytics Dashboard |0.1| Done |
+| NLP: Keyword Extraction & Sentiment Score |0.15| Done |
 
 ---
 
@@ -368,7 +369,7 @@ Halaman ini menganalisis karakteristik pelanggan melalui dimensi **Frequency**, 
 
 ![alt text](image-12.png)
 ![alt text](image-13.png)
-
+ 
 ### Query yang Digunakan
 
 **[SEG-1] Frequency Distribution**
@@ -721,35 +722,107 @@ LIMIT 20;
 ![alt text](image-34.png)
 ---
 
-## 10. NLP: Keyword Extraction & Sentiment Score *(Coming Soon)*
+## 10. NLP: Keyword Extraction & Sentiment Score 
 
-**Fitur ini masih dalam progress pengembangan.**
+Pipeline NLP berbasis **BERT Family** untuk menganalisis suara pelanggan dari 40.028 ulasan e-commerce Brazil (Olist), menghasilkan fitur sentimen dan keyword yang divisualisasikan di **Power BI Dashboard**.
 
-Rencana implementasi menggunakan:
+---
 
-| Model | Fungsi |
+### 10.1 Pipeline Overview
+
+| Komponen | Detail |
 |---|---|
-| **DistilBERT** (multilingual) | Sentiment classification dari teks ulasan |
-| **KeyBERT** | Keyword extraction dari review text |
+| **Dataset** | `order_reviews`,  40.028 baris ulasan pelanggan |
+| **Input** | `review_comment_message` |
+| **Platform** | Google Colab (T4 GPU-accelerated) |
+| **Sentiment Model** | `lxyuan/distilbert-base-multilingual-cased-sentiments-student` |
+| **Keyword Model** | KeyBERT + `paraphrase-multilingual-MiniLM-L12-v2` |
+| **Batch Size** | 32 |
+| **Output File** | `voc_fp_mci.csv` (24 kolom, utf-8-sig, Power BI ready) |
 
-Output yang akan dihasilkan:
+---
 
-- `sentiment_label` — Positive / Neutral / Negative per review
-- `sentiment_score` — confidence score 0.0–1.0
-- `top_keywords` — keyword utama per review
+### 10.2 Arsitektur Pipeline
 
-Arsitektur yang direncanakan:
+![alt text](image-37.png)
 
-```
-Airflow DAG
-    ├── [1] Preprocessing teks (existing nlp_features)
-    ├── [2] NLP Inference — DistilBERT + KeyBERT (batch mode)
-    │         └── simpan hasil ke data_lake/features/nlp_sentiment
-    └── [3] Load ke ClickHouse → nlp_sentiment table
-                  └── Visualisasi di Metabase
-```
+---
 
-Dashboard Power BI juga direncanakan sebagai **alternatif visualisasi** di samping Metabase untuk kebutuhan presentasi yang lebih formal.
+### 10.3 Output Kolom CSV (26 Kolom)
+
+| Kategori | Kolom |
+|---|---|
+| **Identitas** | `review_id`, `order_id` |
+| **Review asli** | `review_score`, `review_comment_title`, `review_comment_message` |
+| **Sentiment** | `sentiment_label`, `sentiment_score`, `sentiment_positive`, `sentiment_negative`, `sentiment_neutral`, `sentiment_compound` |
+| **Keyword** | `keywords`, `keyword_scores`, `top_keyword` |
+| **Waktu** | `review_creation_date`, `review_answer_timestamp`, `review_year`, `review_month`, `review_month_name`, `review_quarter`, `review_yearmonth` |
+| **Feature tambahan** | `comment_length`, `comment_length_bucket`, `sentiment_alignment` |
+
+**Catatan kolom kunci:**
+- `sentiment_compound` = `sentiment_positive − sentiment_negative` -> range [−1, +1], proxy tunggal intensitas sentimen
+- `sentiment_alignment` = `Aligned / Misaligned` -> validasi konsistensi prediksi model terhadap `review_score` numerik
+- `top_keyword` = keyword pertama/terkuat per review -> kolom tersendiri untuk memudahkan filter di Power BI
+
+---
+
+### 10.4 Power BI Dashboard
+
+> *Screenshot Power BI Dashboard - Voice of Customer Analytics*
+
+![alt text](image-38.png)
+
+Dashboard dibagi ke dalam **3 area utama**:
+
+#### Area 1 - Sentiment Overview (kiri atas)
+
+**Donut Chart - Distribusi Sentimen Pelanggan**
+
+Dari 40.028 ulasan yang diproses:
+- **Positive: 23.5K (58.71%)** — mayoritas pelanggan puas
+- **Negative: 13.85K (34.6%)** — segmen yang perlu perhatian
+- **Neutral: 2.68K (6.69%)** — ulasan ambigu / informatif tanpa muatan emosi kuat
+
+**Line Chart - Tren Rata-rata Sentimen per Tahun**
+
+Rata-rata `sentiment_compound` menunjukkan tren naik dari 2016 ke 2017, mengindikasikan peningkatan kepuasan pelanggan secara keseluruhan dari waktu ke waktu.
+
+#### Area 2 - Analisis Mendalam (kiri bawah & tengah)
+
+**Stacked Bar - Sentimen per Bintang Review**
+
+Cross-tab `review_score` vs `sentiment_label` menunjukkan pola yang konsisten:
+- Bintang 5 didominasi oleh label `positive`
+- Bintang 1–2 didominasi oleh label `negative`
+- Bintang 3 menunjukkan distribusi yang lebih beragam, dengan proporsi `neutral` tertinggi
+
+**Bar Chart - Distribusi Bintang Review**
+
+Distribusi 1–5 bintang menunjukkan distribusi **right-skewed**, bintang 5 mendominasi dengan hampir 20K ulasan, diikuti bintang 4. Bintang 1–3 jauh lebih sedikit, konsisten dengan rata-rata `sentiment_compound` positif (0.16).
+
+**Scatter Plot - Panjang Komentar vs Sentimen**
+
+Plot `comment_length` vs `sentiment_compound` menunjukkan bahwa komentar negatif cenderung lebih panjang (pelanggan tidak puas lebih banyak menjelaskan), sementara komentar positif tersebar merata di semua panjang.
+
+#### Area 3 - Top Keyword (kanan)
+
+**Tabel - Top Keyword Ulasan Pelanggan**
+
+30 keyword teratas dari seluruh ulasan, dengan `muito bom` (777x) sebagai keyword paling dominan, diikuti `recebi produto` (723x) dan `produto chegou` (701x). Keyword-keyword ini mencerminkan bahwa **pengiriman dan kualitas produk** adalah dua dimensi yang paling banyak dibicarakan pelanggan.
+
+Keyword negatif yang muncul di top-30 — seperti `não recebi` (403x) dan `não gostei` (117x) menjadi sinyal kuat area yang membutuhkan perbaikan.
+
+---
+
+### 10.5 KPI Cards
+
+| Metric | Nilai |
+|---|---|
+| **Total Review diproses** | 40.028 |
+| **Avg. Sentiment Score** (compound) | 0.16 |
+| **Positive rate** | 58.71% |
+| **Negative rate** | 34.6% |
+| **Keyword null** | 12 baris (< 0.03%) |
 
 ---
 
@@ -763,27 +836,60 @@ Insight disusun dalam 5 area utama: Customer Base & Revenue, Complaint & CX Scor
 - Revenue sangat terkonsentrasi: **state SP (São Paulo)** mendominasi baik dari sisi jumlah customer maupun total revenue
 - Pelanggan dengan `monetary > P75` dan `repeat_customer = 1` menjadi segmen **Champion** yang perlu dipertahankan dengan program loyalitas
 
-**Strategi:** Fokus retention program ke segment Champion dan Loyal yang sudah ada. Acquisition biaya lebih tinggi dari retention — prioritaskan upsell ke existing customer.
+<u>**Business Interpretation**</u>: 
+
+Perusahaan saat ini masih bertumbuh melalui acquisition daripada retention.
+Artinya revenue masih sangat bergantung pada customer baru.
+
+Jika nantinya acquisition cost meningkat, profitabilitas berpotensi turun karena customer belum kembali melakukan pembelian.
+
+<u>**Recommendation**</u>:
+
+* Fokus meningkatkan repeat purchase rate.
+* Bangun loyalty program untuk pelanggan dengan frequency ≥ 2.
+* Buat personalized campaign untuk pelanggan dengan monetary tinggi.
+* Prioritaskan customer yang berasal dari SP, RJ, dan MG karena kontribusi revenue terbesar.
 
 ---
 
 ### 11.2 Complaint & CX Score
 
 - Topik complaint terbesar adalah **delivery** (~17K ulasan), diikuti `seller_communication` (~978) dan `packaging` (~538)
-- Review **bintang 1** memiliki korelasi kuat dengan complaint topik `refund` dan `damaged_product`
-- Customer di tier CX **Poor** memiliki `complaint_rate` tertinggi namun juga berpotensi menjadi segment yang perlu diprioritaskan untuk recovery
+- Review **bintang 1** memiliki korelasi kuat dengan complaint topik `refund`, `damaged_product` dan `product_issue`
+- Customer di tier CX **Poor** memiliki **Complaint Rate** tertinggi namun juga berpotensi menjadi segment yang perlu diprioritaskan untuk recovery, kemudian **Late Delivery Rate** tertinggi dan juga memiliki **Average Review Score** terendah dibanding kategori lainnya.  
 
-**Strategi:** Perbaikan pengiriman adalah intervensi dengan impact terbesar. Implementasi SLA tracking dan notifikasi proaktif ke customer ketika order terlambat dapat mengurangi complaint volume secara signifikan.
+<u>**Business Interpretation**</u>
+
+Customer tidak terlalu mempermasalahkan harga maupun produk.
+
+Masalah terbesar justru muncul setelah transaksi dilakukan, terutama pada proses fulfillment dan delivery.
+
+<u>**Recommendation**</u>
+
+* Prioritaskan improvement pada delivery experience.
+* Tambahkan tracking status pengiriman yang lebih transparan.
+* Buat alert otomatis untuk order yang diprediksi terlambat.
+* Fokus recovery terhadap customer kategori Poor sebelum mereka churn.
 
 ---
 
 ### 11.3 Delivery & Retensi
 
-- Customer yang menerima pengiriman **lebih cepat dari estimasi** memiliki `repeat_rate` dan `review_score` lebih tinggi
+- Customer yang menerima pengiriman **lebih cepat dari estimasi** memiliki `repeat_rate` dan `review_score` lebih tinggi serta mempunyai    cancellation rate yang sangat rendah
 - Keterlambatan `> 7 hari` berkorelasi dengan penurunan review score dan repeat rate yang drastis
-- Cancellation rate meningkat signifikan pada order dengan `delivery_delay_days > 14`
+- Cancellation rate meningkat signifikan melihat lonjakan pada angka 30% pada order dengan `delivery_delay_days > 14`
 
-**Strategi:** Optimalkan estimasi pengiriman — lebih baik memberikan estimasi konservatif (lebih lama) namun konsisten terpenuhi, daripada estimasi optimis namun sering miss.
+<u>**Business Interpretation**</u>
+
+Delivery performance merupakan salah satu driver utama customer satisfaction dan customer retention.
+
+Semakin besar keterlambatan pengiriman, maka, Review Score dan Repeat Rate juga ikut menurun, bersamaan dengan itu, yang lebih disayangkan, Cancellation Rate juga ikut meningkat
+
+<u>**Recommendation**</u>
+
+* Kurangi order yang mengalami delay > 7 hari.
+* Monitoring SLA pengiriman secara real-time.
+* Gunakan prediksi keterlambatan untuk proactive communication ke customer.
 
 ---
 
@@ -810,7 +916,7 @@ Insight disusun dalam 5 area utama: Customer Base & Revenue, Complaint & CX Scor
 
 ---
 
-## 🏁 12. Penutup
+## 12. Penutup
 
 Platform ini berhasil mengimplementasikan arsitektur **Big Data end-to-end** yang mencakup:
 
@@ -821,7 +927,7 @@ Platform ini berhasil mengimplementasikan arsitektur **Big Data end-to-end** yan
 - **Interactive dashboard** di Metabase dengan query spesifik per KPI
 - **Regex-based NLP** untuk complaint topic classification (6 kategori)
 - **CX Score** composite metric yang menggabungkan 4 dimensi pengalaman pelanggan
-- **NLP Sentiment** dengan DistilBERT + KeyBERT *(in progress)*
+- **NLP Sentiment** dengan DistilBERT + KeyBERT
 
 ---
 
