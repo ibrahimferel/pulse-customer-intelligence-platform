@@ -41,7 +41,7 @@
 <table align="center">
   <tr>
     <td align="center" width="320">
-      <img src="ferel.jpg" alt="Ibrahim Ferel" width="180"><br><br>
+      <img src="assets/ferel.jpg" alt="Ibrahim Ferel" width="180"><br><br>
       <b>Ibrahim Ferel</b><br>
       <code>5025241049</code>
     </td>
@@ -75,7 +75,7 @@ Platform ini menjawab pertanyaan bisnis kritis seperti:
 
 Dataset yang digunakan adalah **Olist Brazil E-Commerce Dataset** dengan 7 file CSV:
 
-![alt text](image-35.png)
+![alt text](assets/image-35.png)
 
 1. orders.csv          
 2. order_items.csv     
@@ -91,7 +91,7 @@ Dataset yang digunakan adalah **Olist Brazil E-Commerce Dataset** dengan 7 file 
 
 KPI project ini dibagi ke dalam **6 Program Kerja** dengan total bobot program = 1.0.
 
-![alt text](image-36.png)
+![alt text](assets/image-36.png)
 
 ### Rekap KPI
 
@@ -111,14 +111,14 @@ KPI project ini dibagi ke dalam **6 Program Kerja** dengan total bobot program =
 
 ### Arsitektur Pipeline
 
-![alt text](image-1.png)
+![alt text](assets/image-1.png)
 Source: https://canva.link/w7njlxzh9dh1fxc
 
 ### DAG Orchestration
 
 File: `dustiniadelixia_pipeline.py`
 
-![alt text](image-2.png)
+![alt text](assets/image-2.png)
 
 ```
 fetch_data >> process_data
@@ -162,7 +162,7 @@ Mengambil dataset ZIP dari Google Drive, mengekstrak CSV, dan mengkonversi ke Pa
 ZIP -> Extract -> CSV -> Parquet -> data_lake/raw/
 ```
 
-![alt text](image-3.png)
+![alt text](assets/image-3.png)
 
 **Output struktur:**
 
@@ -185,7 +185,7 @@ raw/
 
 Melakukan join antar tabel raw untuk menghasilkan 3 denormalized tables yang digunakan oleh semua feature engineering scripts.
 
-![alt text](image-4.png)
+![alt text](assets/image-4.png)
 
 | Output Table | Join Sources | Digunakan Oleh |
 |---|---|---|
@@ -197,7 +197,7 @@ Melakukan join antar tabel raw untuk menghasilkan 3 denormalized tables yang dig
 
 ### Layer 3: Feature Engineering
 
-![alt text](image-5.png)
+![alt text](assets/image-5.png)
 
 6 script FE berjalan paralel, masing-masing menghasilkan 1 feature table:
 
@@ -270,7 +270,7 @@ Complaint topic diklasifikasikan menggunakan **regex-based NLP** dari teks ulasa
 
 *Screenshot DAG Airflow semua task SUCCESS:*
 
-![alt text](image-6.png)
+![alt text](assets/image-6.png)
 
 ---
 
@@ -289,7 +289,7 @@ ORDER BY rows DESC;
 
 *Screenshot hasil query ClickHouse:*
 
-![alt text](image-7.png)
+![alt text](assets/image-7.png)
 
 ---
 
@@ -313,7 +313,7 @@ Halaman ini menyajikan ringkasan KPI bisnis tingkat atas: revenue, customer base
 
 *Screenshot Customer Performance Overview dashboard*
 
-![alt text](image-8.png)
+![alt text](assets/image-8.png)
 
 ### Query yang Digunakan
 
@@ -327,7 +327,7 @@ SELECT
         / COUNT(DISTINCT customer_unique_id), 2)    AS revenue_per_customer
 FROM analytics.customer_features;
 ```
-![alt text](image-9.png)
+![alt text](assets/image-9.png)
 
 ---
 
@@ -342,7 +342,7 @@ SELECT
     ROUND(AVG(monetary), 2)                         AS avg_monetary
 FROM analytics.customer_features;
 ```
-![alt text](image-10.png)
+![alt text](assets/image-10.png)
 
 ---
 
@@ -361,7 +361,7 @@ WHERE d.purchase_month IS NOT NULL
 GROUP BY d.purchase_month
 ORDER BY d.purchase_month ASC;
 ```
-![alt text](image-11.png)-
+![alt text](assets/image-11.png)-
 
 ---
 
@@ -371,8 +371,8 @@ Halaman ini menganalisis karakteristik pelanggan melalui dimensi **Frequency**, 
 
 *Screenshot Customer Segmentation dashboard*
 
-![alt text](image-12.png)
-![alt text](image-13.png)
+![alt text](assets/image-12.png)
+![alt text](assets/image-13.png)
  
 ### Query yang Digunakan
 
@@ -389,7 +389,7 @@ FROM analytics.customer_features
 GROUP BY frequency
 ORDER BY frequency ASC;
 ```
-![alt text](image-14.png)
+![alt text](assets/image-14.png)
 
 ---
 
@@ -411,7 +411,7 @@ FROM analytics.customer_features
 GROUP BY monetary_bucket
 ORDER BY MIN(monetary) ASC;
 ```
-![alt text](image-16.png)
+![alt text](assets/image-16.png)
 
 ---
 
@@ -432,7 +432,7 @@ FROM analytics.customer_features
 GROUP BY recency_segment
 ORDER BY MIN(recency_days) ASC;
 ```
-![alt text](image-15.png)
+![alt text](assets/image-15.png)
 
 ---
 
@@ -464,7 +464,7 @@ WHERE repeat_customer = 1
 ORDER BY monetary DESC
 LIMIT 200;
 ```
-![alt text](image-17.png)
+![alt text](assets/image-17.png)
 
 ---
 
@@ -474,8 +474,8 @@ Halaman ini mengevaluasi pengalaman pelanggan melalui empat dimensi: review scor
 
 *Screenshot Customer Experience Analytics dashboard*
 
-![alt text](image-18.png)
-![alt text](image-19.png)
+![alt text](assets/image-18.png)
+![alt text](assets/image-19.png)
 
 ### Query yang Digunakan
 
@@ -495,7 +495,7 @@ FROM analytics.cx_features
 GROUP BY cx_category
 ORDER BY avg_cx_score DESC;
 ```
-![alt text](image-20.png)
+![alt text](assets/image-20.png)
 
 ---
 
@@ -514,8 +514,8 @@ WHERE review_score IS NOT NULL
 GROUP BY star_rating
 ORDER BY star_rating ASC;
 ```
-![alt text](image-21.png)
-![alt text](image-22.png)
+![alt text](assets/image-21.png)
+![alt text](assets/image-22.png)
 
 ---
 
@@ -533,7 +533,7 @@ FROM analytics.cx_features cx
 GROUP BY cx.cx_category
 ORDER BY avg_complaint_rate_pct DESC;
 ```
-![alt text](image-23.png)
+![alt text](assets/image-23.png)
 
 ---
 
@@ -554,7 +554,7 @@ WHERE complaint_topic IS NOT NULL
 GROUP BY complaint_topic
 ORDER BY total_reviews DESC;
 ```
-![alt text](image-24.png)
+![alt text](assets/image-24.png)
 
 ---
 
@@ -573,7 +573,7 @@ LEFT JOIN analytics.customer_features c USING (customer_unique_id)
 GROUP BY cx_category
 ORDER BY avg_cx_score DESC;
 ```
-![alt text](image-25.png)
+![alt text](assets/image-25.png)
 
 ---
 
@@ -583,8 +583,8 @@ Halaman ini menganalisis faktor-faktor yang memengaruhi loyalitas dan retensi pe
 
 *Screenshot Customer Behavior Drivers dashboard*
 
-![alt text](image-26.png)
-![alt text](image-27.png)
+![alt text](assets/image-26.png)
+![alt text](assets/image-27.png)
 
 ### Query yang Digunakan
 
@@ -610,7 +610,7 @@ WHERE delivery_delay_days IS NOT NULL
 GROUP BY delay_bucket
 ORDER BY MIN(toFloat64(delivery_delay_days)) ASC;
 ```
-![alt text](image-28.png)
+![alt text](assets/image-28.png)
 
 ---
 
@@ -632,8 +632,8 @@ WHERE p.payment_type IS NOT NULL
 GROUP BY p.payment_type, p.installment_group
 ORDER BY avg_monetary DESC;
 ```
-![alt text](image-29.png)
-![alt text](image-30.png)
+![alt text](assets/image-29.png)
+![alt text](assets/image-30.png)
 
 ---
 
@@ -660,7 +660,7 @@ FROM analytics.customer_features
 GROUP BY lifecycle_segment
 ORDER BY MIN(recency_days) ASC;
 ```
-![alt text](image-31.png)
+![alt text](assets/image-31.png)
 
 ---
 
@@ -670,7 +670,7 @@ Halaman ini menganalisis distribusi geografis pelanggan dan kinerja seller per r
 
 *Screenshot Geo & Seller Analytics dashboard*
 
-![alt text](image-32.png)
+![alt text](assets/image-32.png)
 
 ### Query yang Digunakan
 
@@ -695,7 +695,7 @@ WHERE g.customer_state IS NOT NULL
 GROUP BY g.customer_state
 ORDER BY total_revenue DESC;
 ```
-![alt text](image-33.png)
+![alt text](assets/image-33.png)
 ---
 
 **[GEO-2] Revenue by State Analysis**
@@ -723,12 +723,12 @@ GROUP BY g.customer_state
 ORDER BY total_revenue DESC
 LIMIT 20;
 ```
-![alt text](image-34.png)
+![alt text](assets/image-34.png)
 ---
 
 ## 10. NLP: Keyword Extraction & Sentiment Score 
 
-![alt text](image-39.png)
+![alt text](assets/image-39.png)
 link: https://huggingface.co/lxyuan/distilbert-base-multilingual-cased-sentiments-student
 
 
@@ -752,7 +752,7 @@ Pipeline NLP berbasis **BERT Family** untuk menganalisis suara pelanggan dari 40
 
 ### 10.2 Arsitektur Pipeline
 
-![alt text](image-37.png)
+![alt text](assets/image-37.png)
 
 ---
 
@@ -778,7 +778,7 @@ Pipeline NLP berbasis **BERT Family** untuk menganalisis suara pelanggan dari 40
 
 > *Screenshot Power BI Dashboard - Voice of Customer Analytics*
 
-![alt text](image-38.png)
+![alt text](assets/image-38.png)
 
 Dashboard dibagi ke dalam **3 area utama**:
 
