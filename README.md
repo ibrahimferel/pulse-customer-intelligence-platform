@@ -8,6 +8,10 @@
 ![ClickHouse](https://img.shields.io/badge/ClickHouse-23.8-FFCC01?style=flat-square&logo=clickhouse&logoColor=black)
 ![Metabase](https://img.shields.io/badge/Metabase-latest-509EE3?style=flat-square&logo=metabase&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker&logoColor=white)
+![DistilBERT](https://img.shields.io/badge/DistilBERT-Sentiment_Model-FF6F00?style=flat-square)
+![KeyBERT](https://img.shields.io/badge/KeyBERT-Keyword_Extraction-4CAF50?style=flat-square)
+![Power BI](https://img.shields.io/badge/Power_BI-Dashboard-F2C811?style=flat-square&logo=powerbi&logoColor=black)
+![HuggingFace](https://img.shields.io/badge/Hugging_Face-Transformers-FFD21E?style=flat-square&logo=huggingface&logoColor=black)
 
 **End-to-end Customer Analytics Platform** untuk menganalisis performa pelanggan, pengalaman transaksi, dan segmentasi customer dari dataset e-commerce Brazil (Olist)
 
@@ -515,7 +519,7 @@ ORDER BY star_rating ASC;
 
 ---
 
-**[CX-3] Complaint Analysis — Rate per Segment**
+**[CX-3] Complaint Analysis, Rate per Segment**
 ```sql
 SELECT
     cx.cx_category,
@@ -533,7 +537,7 @@ ORDER BY avg_complaint_rate_pct DESC;
 
 ---
 
-**[CX-4] Complaint Topic Classification — 6 Kategori**
+**[CX-4] Complaint Topic Classification, 6 Kategori**
 ```sql
 SELECT
     complaint_topic,
@@ -554,7 +558,7 @@ ORDER BY total_reviews DESC;
 
 ---
 
-**[CX-5] CX Category Segmentation — Proporsi Tier**
+**[CX-5] CX Category Segmentation, Proporsi Tier**
 ```sql
 SELECT
     cx_category,
@@ -575,7 +579,7 @@ ORDER BY avg_cx_score DESC;
 
 ## 8. Customer Behavior Drivers
 
-Halaman ini menganalisis faktor-faktor yang memengaruhi loyalitas dan retensi pelanggan — dari pola keterlambatan pengiriman, metode pembayaran, hingga siklus hidup customer.
+Halaman ini menganalisis faktor-faktor yang memengaruhi loyalitas dan retensi pelanggan, dari pola keterlambatan pengiriman, metode pembayaran, hingga siklus hidup customer.
 
 *Screenshot Customer Behavior Drivers dashboard*
 
@@ -724,6 +728,10 @@ LIMIT 20;
 
 ## 10. NLP: Keyword Extraction & Sentiment Score 
 
+![alt text](image-39.png)
+link: https://huggingface.co/lxyuan/distilbert-base-multilingual-cased-sentiments-student
+
+
 Pipeline NLP berbasis **BERT Family** untuk menganalisis suara pelanggan dari 40.028 ulasan e-commerce Brazil (Olist), menghasilkan fitur sentimen dan keyword yang divisualisasikan di **Power BI Dashboard**.
 
 ---
@@ -779,9 +787,9 @@ Dashboard dibagi ke dalam **3 area utama**:
 **Donut Chart - Distribusi Sentimen Pelanggan**
 
 Dari 40.028 ulasan yang diproses:
-- **Positive: 23.5K (58.71%)** — mayoritas pelanggan puas
-- **Negative: 13.85K (34.6%)** — segmen yang perlu perhatian
-- **Neutral: 2.68K (6.69%)** — ulasan ambigu / informatif tanpa muatan emosi kuat
+- **Positive: 23.5K (58.71%)**, mayoritas pelanggan puas
+- **Negative: 13.85K (34.6%)**, segmen yang perlu perhatian
+- **Neutral: 2.68K (6.69%)**, ulasan ambigu / informatif tanpa muatan emosi kuat
 
 **Line Chart - Tren Rata-rata Sentimen per Tahun**
 
@@ -810,7 +818,7 @@ Plot `comment_length` vs `sentiment_compound` menunjukkan bahwa komentar negatif
 
 30 keyword teratas dari seluruh ulasan, dengan `muito bom` (777x) sebagai keyword paling dominan, diikuti `recebi produto` (723x) dan `produto chegou` (701x). Keyword-keyword ini mencerminkan bahwa **pengiriman dan kualitas produk** adalah dua dimensi yang paling banyak dibicarakan pelanggan.
 
-Keyword negatif yang muncul di top-30 — seperti `não recebi` (403x) dan `não gostei` (117x) menjadi sinyal kuat area yang membutuhkan perbaikan.
+Keyword negatif yang muncul di top-30, seperti `não recebi` (403x) dan `não gostei` (117x) menjadi sinyal kuat area yang membutuhkan perbaikan.
 
 ---
 
@@ -895,24 +903,103 @@ Semakin besar keterlambatan pengiriman, maka, Review Score dan Repeat Rate juga 
 
 ### 11.4 Segmentasi & Lifecycle
 
-- Mayoritas pelanggan berada di segment **"Churned"** dan **"One-Time Inactive"** — ini adalah peluang win-back campaign
+- Mayoritas pelanggan berada di segment **"Churned"** dan **"One-Time Inactive"**, ini adalah peluang win-back campaign, yakni strategi untuk mengajak pelanggan lama untuk kembali berlangganan.
 - Pelanggan **Active Loyal** memiliki `avg_monetary` dan `avg_frequency` tertinggi secara konsisten
 - Segment **"At Risk"** (recency 91–180 hari) adalah prioritas intervensi sebelum menjadi Churned
 
-**Strategi:**
-- **Active Loyal** → VIP program, early access, exclusive offer
-- **At Risk** → Re-engagement campaign dengan personalized offer berdasarkan `preferred_payment_type`
-- **Churned** → Win-back email dengan diskon berbasis produk yang pernah dibeli
+<u>**Business Interpretation**</u>
+
+Jumlah customer yang berpotensi hilang jauh lebih besar dibanding customer loyal.
+
+Ini menunjukkan adanya peluang besar untuk melakukan win-back campaign.
+
+<u>**Recommendation**</u>
+
+**Active Loyal:** bisa untuk lebih diistimewakan agar lebih konsisten untuk membeli di kami
+
+* VIP Program
+* Early Access Promotion
+* Referral Program
+
+**At Risk**: strategi untuk menangani resiko yang kedepannya akan lebih berat jika tidak ditangani dengan sigap
+
+* Reminder Campaign
+* Personalized Discount
+
+**Churned**: tentang bagaimana cara kita untuk menarik kembali atensi para pelanggan lama untuk bisa kembali membeli di kita
+
+* Win Back Campaign
+* Product Recommendation berdasarkan histori transaksi
 
 ---
 
 ### 11.5 Geo & Seller
 
-- **SP, RJ, MG** adalah 3 state dengan revenue tertinggi — namun `avg_freight_ratio` di state-state ini relatif lebih tinggi
-- State dengan `intrastate_order_pct` rendah (customer dan seller dari state berbeda) cenderung memiliki freight cost lebih tinggi dan delivery lebih lambat
+- **SP, RJ, MG** adalah 3 state dengan revenue tertinggi, namun `avg_freight_ratio` di state-state ini relatif lebih tinggi
+- State dengan `intrastate_order_pct` rendah (customer dan seller dari state berbeda) cenderung memiliki freight cost yang lebih tinggi, delivery time lebih lama, kemudian juga dapat berisiko complaint lebih besar.
 - Seller di state dengan `high_freight_flag` tinggi berpotensi menjadi bottleneck kepuasan pelanggan
 
-**Strategi:** Prioritaskan rekrutmen seller lokal di state-state dengan `intrastate_order_pct` rendah untuk mengurangi freight cost dan mempercepat delivery time.
+<u>**Business Interpretation**</u>
+
+Jaringan seller belum merata di seluruh wilayah.
+Beberapa state masih bergantung pada seller dari luar state.
+
+<u>**Recommendation**</u>
+
+* Rekrut seller baru pada wilayah dengan intrastate rate rendah.
+* Prioritaskan ekspansi seller pada state dengan revenue tinggi.
+* Bangun regional fulfillment strategy untuk mengurangi freight cost dan mempercepat delivery.
+
+---
+
+## 13. Executive Summary
+
+<u>**Key Findings**</u>
+
+**Customer Retention:**
+
+* Total terdapat 93,358 pelanggan unik dengan repeat rate hanya sekitar 3%.
+* Sebagian besar pelanggan merupakan one-time buyer, menunjukkan peluang besar pada strategi retention dan loyalty program.
+* Segment At Risk, Lapsing, dan Churned mendominasi customer lifecycle.
+
+**Customer Experience:**
+
+* Delivery menjadi sumber complaint terbesar dibandingkan faktor lainnya.
+* Keterlambatan pengiriman berkorelasi dengan penurunan review score dan peningkatan cancellation rate.
+* Customer dengan CX Score rendah memiliki complaint rate dan late delivery rate yang lebih tinggi.
+
+**Customer Behavior:**
+
+* Customer dengan pengalaman pengiriman yang baik cenderung memiliki review score dan loyalitas yang lebih tinggi.
+* Metode pembayaran dan pola transaksi menunjukkan hubungan dengan tingkat loyalitas pelanggan.
+* Customer bernilai tinggi memiliki karakteristik frequency dan monetary yang jauh di atas rata-rata.
+
+**Geo & Seller Performance:**
+
+* Revenue dan customer sangat terkonsentrasi pada state SP, RJ, dan MG.
+* Beberapa wilayah masih memiliki tingkat transaksi lintas-state yang tinggi sehingga berpotensi meningkatkan biaya logistik dan waktu pengiriman.
+* Optimalisasi seller network lokal berpotensi meningkatkan efisiensi operasional.
+
+**Voice of Customer Analytics:**
+
+* Analisis sentimen menggunakan DistilBERT menunjukkan keterkaitan kuat antara sentiment dan review score.
+* Keyword extraction menggunakan KeyBERT berhasil mengidentifikasi topik utama yang paling sering muncul dalam ulasan pelanggan.
+* Topik terkait delivery, seller communication, dan product issue menjadi sumber utama sentimen negatif.
+
+**Strategic Recommendations:**
+
+* Meningkatkan customer retention melalui loyalty program dan win-back campaign.
+* Memprioritaskan perbaikan delivery performance untuk meningkatkan customer experience.
+* Mengembangkan seller network pada wilayah dengan kontribusi revenue tertinggi.
+* Memanfaatkan Voice of Customer Analytics sebagai sistem monitoring kualitas layanan secara berkelanjutan.
+* Menggunakan dashboard analytics sebagai dasar pengambilan keputusan berbasis data untuk tim bisnis dan operasional.
+
+**Business Impact:**
+
+* Mengidentifikasi faktor utama yang memengaruhi loyalitas pelanggan.
+* Mengungkap penyebab dominan complaint pelanggan.
+* Menyediakan framework monitoring customer performance secara end-to-end.
+* Mendukung pengambilan keputusan yang lebih cepat melalui dashboard interaktif dan analytics pipeline yang terotomatisasi.
 
 ---
 
@@ -935,7 +1022,7 @@ Platform ini berhasil mengimplementasikan arsitektur **Big Data end-to-end** yan
 
 **Institut Teknologi Sepuluh Nopember**
 <br>
-Departemen Informatika — 2025/2026
+Departemen Teknik Informatika - 2025/2026
 <br><br>
 
 | Nama | NRP |
