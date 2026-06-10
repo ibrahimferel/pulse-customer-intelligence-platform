@@ -78,6 +78,7 @@ Platform ini menjawab pertanyaan bisnis kritis seperti:
 Dataset yang digunakan adalah **Olist Brazil E-Commerce Dataset** dengan 7 file CSV:
 
 ![alt text](assets/image-35.png)
+Link Source: [Dataset Relationship Mapping](https://canva.link/w7njlxzh9dh1fxc)
 
 1. orders.csv          
 2. order_items.csv     
@@ -95,6 +96,7 @@ KPI project ini dibagi ke dalam **6 Program Kerja** dengan total bobot program =
 
 ![alt text](assets/image-100.png)
 Link Source: [Key Performance Indicator](https://docs.google.com/spreadsheets/d/1Bz7AEaTHlDZYDfEu30yqHzeP4rHBaBkVi_PPuezqe4M/edit?usp=sharing)
+
 
 ### Rekap KPI
 
@@ -115,7 +117,7 @@ Link Source: [Key Performance Indicator](https://docs.google.com/spreadsheets/d/
 ### Arsitektur Pipeline
 
 ![alt text](assets/image-1.png)
-Source: https://canva.link/w7njlxzh9dh1fxc
+Link Source: [Arsitektur Pipeline](https://canva.link/w7njlxzh9dh1fxc)
 
 ### DAG Orchestration
 
