@@ -1,6 +1,6 @@
 <div align="center">
 
-# DustiniaDelixia: Customer Analytics Platform
+# Project PULSE: Platform for Unified Customer Analytics and Business Intelligence
 
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Apache Spark](https://img.shields.io/badge/Apache_Spark-3.x-E25A1C?style=flat-square&logo=apachespark&logoColor=white)
@@ -834,176 +834,214 @@ Keyword negatif yang muncul di top-30, seperti `não recebi` (403x) dan `não go
 
 ---
 
-## 11. Insight & Strategi Bisnis
+## 11. Insight & Business Strategy
 
-Insight disusun dalam 5 area utama: Customer Base & Revenue, Complaint & CX Score, Delivery & Retensi, Segmentasi & Lifecycle, dan Geo & Seller, masing-masing disertai strategi konkret yang dapat diimplementasikan sebagai langkah lanjutan.
-
-### 11.1 Customer Base & Revenue
-
-- Total **93,358 unique customers** dengan distribusi mayoritas adalah **one-time buyer** (repeat rate rendah)
-- Revenue sangat terkonsentrasi: **state SP (São Paulo)** mendominasi baik dari sisi jumlah customer maupun total revenue
-- Pelanggan dengan `monetary > P75` dan `repeat_customer = 1` menjadi segmen **Champion** yang perlu dipertahankan dengan program loyalitas
-
-<u>**Business Interpretation**</u>: 
-
-Perusahaan saat ini masih bertumbuh melalui acquisition daripada retention.
-Artinya revenue masih sangat bergantung pada customer baru.
-
-Jika nantinya acquisition cost meningkat, profitabilitas berpotensi turun karena customer belum kembali melakukan pembelian.
-
-<u>**Recommendation**</u>:
-
-* Fokus meningkatkan repeat purchase rate.
-* Bangun loyalty program untuk pelanggan dengan frequency ≥ 2.
-* Buat personalized campaign untuk pelanggan dengan monetary tinggi.
-* Prioritaskan customer yang berasal dari SP, RJ, dan MG karena kontribusi revenue terbesar.
+PULSE identifies five major business areas that directly influence customer retention, customer experience, and long-term business performance. By integrating customer analytics, behavioral analytics, customer experience measurement, and Voice of Customer analysis, the framework provides actionable recommendations for customer-centric decision making.
 
 ---
 
-### 11.2 Complaint & CX Score
+### 11.1 Customer Retention Crisis
 
-- Topik complaint terbesar adalah **delivery** (~17K ulasan), diikuti `seller_communication` (~978) dan `packaging` (~538)
-- Review **bintang 1** memiliki korelasi kuat dengan complaint topik `refund`, `damaged_product` dan `product_issue`
-- Customer di tier CX **Poor** memiliki **Complaint Rate** tertinggi namun juga berpotensi menjadi segment yang perlu diprioritaskan untuk recovery, kemudian **Late Delivery Rate** tertinggi dan juga memiliki **Average Review Score** terendah dibanding kategori lainnya.  
+#### Key Findings
 
-<u>**Business Interpretation**</u>
+- Total customers: **93,358**
+- Repeat customers: **2,801**
+- One-time customers: **90,557**
+- Repeat Rate: **3.0%**
+- Average Frequency: **1.03 orders per customer**
 
-Customer tidak terlalu mempermasalahkan harga maupun produk.
+#### Business Interpretation
 
-Masalah terbesar justru muncul setelah transaksi dilakukan, terutama pada proses fulfillment dan delivery.
+Despite acquiring more than 93 thousand customers, the platform struggles to retain them. Approximately 97% of customers only make a single purchase and never return. This indicates that business growth currently relies heavily on customer acquisition rather than customer retention.
 
-<u>**Recommendation**</u>
+Such a condition may become problematic in the future because acquiring new customers is generally more expensive than retaining existing ones. Improving retention therefore represents the largest opportunity for sustainable growth and customer lifetime value expansion.
 
-* Prioritaskan improvement pada delivery experience.
-* Tambahkan tracking status pengiriman yang lebih transparan.
-* Buat alert otomatis untuk order yang diprediksi terlambat.
-* Fokus recovery terhadap customer kategori Poor sebelum mereka churn.
+#### Strategic Recommendations
 
----
-
-### 11.3 Delivery & Retensi
-
-- Customer yang menerima pengiriman **lebih cepat dari estimasi** memiliki `repeat_rate` dan `review_score` lebih tinggi serta mempunyai    cancellation rate yang sangat rendah
-- Keterlambatan `> 7 hari` berkorelasi dengan penurunan review score dan repeat rate yang drastis
-- Cancellation rate meningkat signifikan melihat lonjakan pada angka 30% pada order dengan `delivery_delay_days > 14`
-
-<u>**Business Interpretation**</u>
-
-Delivery performance merupakan salah satu driver utama customer satisfaction dan customer retention.
-
-Semakin besar keterlambatan pengiriman, maka, Review Score dan Repeat Rate juga ikut menurun, bersamaan dengan itu, yang lebih disayangkan, Cancellation Rate juga ikut meningkat
-
-<u>**Recommendation**</u>
-
-* Kurangi order yang mengalami delay > 7 hari.
-* Monitoring SLA pengiriman secara real-time.
-* Gunakan prediksi keterlambatan untuk proactive communication ke customer.
+- Make **Repeat Rate** a primary business KPI.
+- Develop loyalty programs for repeat customers.
+- Launch win-back campaigns for inactive customers.
+- Implement personalized promotions based on purchase history.
+- Prioritize customer lifecycle management initiatives.
 
 ---
 
-### 11.4 Segmentasi & Lifecycle
+### 11.2 Customer Experience as a Retention Indicator
 
-- Mayoritas pelanggan berada di segment **"Churned"** dan **"One-Time Inactive"**, ini adalah peluang win-back campaign, yakni strategi untuk mengajak pelanggan lama untuk kembali berlangganan.
-- Pelanggan **Active Loyal** memiliki `avg_monetary` dan `avg_frequency` tertinggi secara konsisten
-- Segment **"At Risk"** (recency 91–180 hari) adalah prioritas intervensi sebelum menjadi Churned
+#### Key Findings
 
-<u>**Business Interpretation**</u>
+- **42,997 customers (46.1%)** are classified as **Excellent**
+- **32,290 customers (34.6%)** are classified as **Good**
+- **18,071 customers (19.3%)** fall into **Fair** and **Poor** categories
 
-Jumlah customer yang berpotensi hilang jauh lebih besar dibanding customer loyal.
+Customers in lower CX categories consistently exhibit:
 
-Ini menunjukkan adanya peluang besar untuk melakukan win-back campaign.
+- Lower review scores
+- Higher complaint rates
+- Higher late-delivery rates
 
-<u>**Recommendation**</u>
+#### Business Interpretation
 
-**Active Loyal:** bisa untuk lebih diistimewakan agar lebih konsisten untuk membeli di kami
+Customer experience serves as an early indicator of future retention risk. Customers with poor experiences are significantly more likely to complain, provide negative reviews, and discontinue future purchases.
 
-* VIP Program
-* Early Access Promotion
-* Referral Program
+The findings suggest that customer satisfaction is strongly influenced by post-purchase service quality rather than product-related factors alone.
 
-**At Risk**: strategi untuk menangani resiko yang kedepannya akan lebih berat jika tidak ditangani dengan sigap
+#### Strategic Recommendations
 
-* Reminder Campaign
-* Personalized Discount
-
-**Churned**: tentang bagaimana cara kita untuk menarik kembali atensi para pelanggan lama untuk bisa kembali membeli di kita
-
-* Win Back Campaign
-* Product Recommendation berdasarkan histori transaksi
+- Continuously monitor CX Score trends.
+- Prioritize recovery efforts for Poor and Fair customers.
+- Implement proactive customer support programs.
+- Establish automated alerts for deteriorating CX performance.
 
 ---
 
-### 11.5 Geo & Seller
+### 11.3 Delivery Performance as the Root Cause
 
-- **SP, RJ, MG** adalah 3 state dengan revenue tertinggi, namun `avg_freight_ratio` di state-state ini relatif lebih tinggi
-- State dengan `intrastate_order_pct` rendah (customer dan seller dari state berbeda) cenderung memiliki freight cost yang lebih tinggi, delivery time lebih lama, kemudian juga dapat berisiko complaint lebih besar.
-- Seller di state dengan `high_freight_flag` tinggi berpotensi menjadi bottleneck kepuasan pelanggan
+#### Key Findings
 
-<u>**Business Interpretation**</u>
+- Orders delivered before the estimated date achieve the highest review scores.
+- Customer satisfaction declines consistently as delivery delays increase.
+- Delays exceeding 14 days generate the lowest review scores.
+- Cancellation rates increase sharply once delays exceed one week.
+- Repeat purchase behavior decreases as delivery delays become longer.
 
-Jaringan seller belum merata di seluruh wilayah.
-Beberapa state masih bergantung pada seller dari luar state.
+#### Business Interpretation
 
-<u>**Recommendation**</u>
+Delivery performance is not merely an operational metric; it is one of the strongest drivers of customer satisfaction, retention, and cancellation behavior.
 
-* Rekrut seller baru pada wilayah dengan intrastate rate rendah.
-* Prioritaskan ekspansi seller pada state dengan revenue tinggi.
-* Bangun regional fulfillment strategy untuk mengurangi freight cost dan mempercepat delivery.
+The analysis suggests that logistics reliability directly affects customer trust. Delayed deliveries reduce satisfaction, increase cancellation risk, and ultimately contribute to customer churn.
 
----
+#### Strategic Recommendations
 
-## 13. Executive Summary
-
-<u>**Key Findings**</u>
-
-**Customer Retention:**
-
-* Total terdapat 93,358 pelanggan unik dengan repeat rate hanya sekitar 3%.
-* Sebagian besar pelanggan merupakan one-time buyer, menunjukkan peluang besar pada strategi retention dan loyalty program.
-* Segment At Risk, Lapsing, dan Churned mendominasi customer lifecycle.
-
-**Customer Experience:**
-
-* Delivery menjadi sumber complaint terbesar dibandingkan faktor lainnya.
-* Keterlambatan pengiriman berkorelasi dengan penurunan review score dan peningkatan cancellation rate.
-* Customer dengan CX Score rendah memiliki complaint rate dan late delivery rate yang lebih tinggi.
-
-**Customer Behavior:**
-
-* Customer dengan pengalaman pengiriman yang baik cenderung memiliki review score dan loyalitas yang lebih tinggi.
-* Metode pembayaran dan pola transaksi menunjukkan hubungan dengan tingkat loyalitas pelanggan.
-* Customer bernilai tinggi memiliki karakteristik frequency dan monetary yang jauh di atas rata-rata.
-
-**Geo & Seller Performance:**
-
-* Revenue dan customer sangat terkonsentrasi pada state SP, RJ, dan MG.
-* Beberapa wilayah masih memiliki tingkat transaksi lintas-state yang tinggi sehingga berpotensi meningkatkan biaya logistik dan waktu pengiriman.
-* Optimalisasi seller network lokal berpotensi meningkatkan efisiensi operasional.
-
-**Voice of Customer Analytics:**
-
-* Analisis sentimen menggunakan DistilBERT menunjukkan keterkaitan kuat antara sentiment dan review score.
-* Keyword extraction menggunakan KeyBERT berhasil mengidentifikasi topik utama yang paling sering muncul dalam ulasan pelanggan.
-* Topik terkait delivery, seller communication, dan product issue menjadi sumber utama sentimen negatif.
-
-**Strategic Recommendations:**
-
-* Meningkatkan customer retention melalui loyalty program dan win-back campaign.
-* Memprioritaskan perbaikan delivery performance untuk meningkatkan customer experience.
-* Mengembangkan seller network pada wilayah dengan kontribusi revenue tertinggi.
-* Memanfaatkan Voice of Customer Analytics sebagai sistem monitoring kualitas layanan secara berkelanjutan.
-* Menggunakan dashboard analytics sebagai dasar pengambilan keputusan berbasis data untuk tim bisnis dan operasional.
-
-**Business Impact:**
-
-* Mengidentifikasi faktor utama yang memengaruhi loyalitas pelanggan.
-* Mengungkap penyebab dominan complaint pelanggan.
-* Menyediakan framework monitoring customer performance secara end-to-end.
-* Mendukung pengambilan keputusan yang lebih cepat melalui dashboard interaktif dan analytics pipeline yang terotomatisasi.
+- Reduce orders experiencing delays greater than 7 days.
+- Implement predictive delay monitoring systems.
+- Improve shipment tracking transparency.
+- Provide proactive communication for delayed orders.
+- Introduce compensation or recovery programs for severe delays.
 
 ---
 
-## 12. Penutup
+### 11.4 Voice of Customer Validation
+
+#### Key Findings
+
+Analysis of **40,028 customer reviews** revealed:
+
+| Sentiment | Percentage |
+|------------|-----------:|
+| Positive | 58.71% |
+| Negative | 34.60% |
+| Neutral | 6.69% |
+
+Dominant discussion topics include:
+
+- Delivery issues
+- Seller communication
+- Product-related concerns
+
+#### Business Interpretation
+
+Voice of Customer analysis independently validates findings obtained from structured analytics. Interestingly, customer dissatisfaction is primarily associated with operational service failures rather than pricing concerns.
+
+Delivery-related issues consistently emerge as the dominant complaint category, followed by seller communication problems and product-related concerns.
+
+#### Strategic Recommendations
+
+- Monitor customer sentiment on a regular basis.
+- Integrate NLP analytics into operational monitoring.
+- Perform root-cause analysis on recurring complaint themes.
+- Use customer feedback as an evaluation metric for logistics and seller performance.
+- Establish automated customer feedback monitoring processes.
+
+---
+
+### 11.5 Geographic Context
+
+#### Key Findings
+
+Customer distribution is highly concentrated in three states:
+
+| State | Customer Share |
+|---------|-----------:|
+| São Paulo (SP) | 41.92% |
+| Rio de Janeiro (RJ) | 12.88% |
+| Minas Gerais (MG) | 11.71% |
+
+Together, these three states account for:
+
+- Approximately **66.5% of the customer base**
+- More than **62% of total platform revenue**
+
+#### Business Interpretation
+
+Although geographic analytics is not the primary focus of customer-centric analysis, it provides important context for business prioritization. Since most customers are concentrated within a limited number of regions, improvements implemented within these areas are likely to generate the largest overall impact.
+
+#### Strategic Recommendations
+
+- Prioritize customer experience improvements in SP, RJ, and MG.
+- Strengthen seller and logistics networks within major regions.
+- Use geographic insights to guide future expansion strategies.
+- Allocate operational resources based on customer concentration patterns.
+
+---
+
+## 12. Executive Summary
+
+### <u>**Key Findings**</u>
+
+### Customer Retention
+
+* Platform melayani **93,358 pelanggan unik**, namun hanya sekitar **3%** yang melakukan pembelian ulang.
+* Sebanyak **97% pelanggan** merupakan one-time buyers, menunjukkan bahwa tantangan utama bisnis terletak pada customer retention, bukan customer acquisition.
+* Segmen **At Risk, Lapsing, dan Churned** mendominasi customer lifecycle, sementara pelanggan loyal aktif hanya mencakup sebagian kecil basis pelanggan.
+
+### Customer Experience
+
+* Analisis CX menunjukkan bahwa lebih dari **18 ribu pelanggan** berada pada kategori **Fair** dan **Poor**, yang memiliki complaint rate dan late delivery rate lebih tinggi dibanding kategori lainnya.
+* Delivery muncul sebagai faktor yang paling konsisten memengaruhi kepuasan pelanggan.
+* Customer dengan pengalaman pengiriman yang buruk cenderung memberikan review score yang lebih rendah dan memiliki risiko churn yang lebih tinggi.
+
+### Delivery Impact
+
+* Keterlambatan pengiriman berkorelasi langsung dengan penurunan review score dan repeat purchase behavior.
+* Cancellation rate meningkat secara signifikan pada order yang mengalami keterlambatan lebih dari dua minggu.
+* Delivery performance terbukti menjadi driver utama customer satisfaction, retention, dan cancellation behavior.
+
+### Voice of Customer Analytics
+
+* Analisis terhadap **40,028 ulasan pelanggan** menunjukkan distribusi sentimen sebesar **58.71% positif**, **34.60% negatif**, dan **6.69% netral**.
+* Keyword extraction mengidentifikasi **delivery issues**, **seller communication**, dan **product-related concerns** sebagai topik dominan dalam ulasan pelanggan.
+* Hasil Voice of Customer secara konsisten memvalidasi temuan Customer Experience dan Behavioral Analytics bahwa delivery merupakan sumber utama ketidakpuasan pelanggan.
+
+### Geographic Context
+
+* Aktivitas pelanggan terkonsentrasi pada **São Paulo (SP), Rio de Janeiro (RJ), dan Minas Gerais (MG)**.
+* Ketiga wilayah tersebut menyumbang sekitar **66.5% basis pelanggan** dan lebih dari **62% total revenue**.
+* Perbaikan customer experience pada wilayah-wilayah utama ini berpotensi menghasilkan dampak bisnis yang paling signifikan.
+
+---
+
+### <u>**Strategic Recommendations**</u>
+
+* Menjadikan **customer retention** sebagai KPI utama melalui loyalty program, win-back campaign, dan personalized promotion.
+* Memprioritaskan peningkatan **delivery performance** untuk mengurangi churn dan meningkatkan customer satisfaction.
+* Mengimplementasikan sistem monitoring keterlambatan pengiriman dan proactive customer communication.
+* Memanfaatkan **Voice of Customer Analytics** sebagai mekanisme monitoring kualitas layanan dan identifikasi masalah pelanggan secara berkelanjutan.
+* Memfokuskan inisiatif customer experience pada wilayah dengan konsentrasi pelanggan tertinggi untuk memperoleh dampak bisnis yang lebih besar.
+
+---
+
+### <u>**Business Impact**</u>
+
+* Mengidentifikasi bahwa **customer retention** merupakan tantangan bisnis utama dengan repeat rate hanya sekitar **3%**.
+* Menemukan bahwa **delivery performance** merupakan faktor paling berpengaruh terhadap kepuasan pelanggan, loyalitas, dan cancellation behavior.
+* Memvalidasi temuan customer analytics menggunakan pendekatan **Voice of Customer Analytics** berbasis NLP.
+* Menyediakan framework customer intelligence yang mengintegrasikan customer analytics, customer experience analytics, behavioral analytics, dan customer feedback analytics dalam satu platform terpadu.
+* Mendukung pengambilan keputusan yang lebih cepat dan lebih customer-centric melalui pipeline analytics yang terotomatisasi dan dashboard interaktif.
+
+---
+
+## 13. Penutup
 
 Platform ini berhasil mengimplementasikan arsitektur **Big Data end-to-end** yang mencakup:
 
@@ -1015,6 +1053,34 @@ Platform ini berhasil mengimplementasikan arsitektur **Big Data end-to-end** yan
 - **Regex-based NLP** untuk complaint topic classification (6 kategori)
 - **CX Score** composite metric yang menggabungkan 4 dimensi pengalaman pelanggan
 - **NLP Sentiment** dengan DistilBERT + KeyBERT
+
+---
+
+## 14. Challenges & Limitations
+
+Selama pengembangan PULSE, terdapat beberapa tantangan dan keterbatasan yang memengaruhi proses analisis maupun interpretasi hasil.
+
+### 14.1 Distribusi Data yang Tidak Seimbang
+
+Beberapa atribut pada dataset memiliki distribusi yang sangat tidak seimbang (skewed distribution). Sebagai contoh, sebagian besar pelanggan hanya melakukan satu kali pembelian, sementara hanya sebagian kecil yang melakukan pembelian berulang.
+
+Kondisi ini menyebabkan beberapa visualisasi menjadi kurang informatif karena kategori tertentu mendominasi keseluruhan distribusi data. Oleh karena itu, beberapa analisis memerlukan segmentasi tambahan agar pola yang lebih detail dapat terlihat.
+
+---
+
+### 14.2 Keterbatasan Metabase
+
+Metabase tidak selalu menyimpan state terakhir dashboard, termasuk filter, sorting, maupun konfigurasi eksplorasi data yang sedang digunakan.
+
+Akibatnya, proses analisis terkadang memerlukan konfigurasi ulang dashboard ketika sesi kerja baru dimulai.
+
+---
+
+### 14.3 Keterbatasan Analisis NLP
+
+Seluruh ulasan pelanggan ditulis dalam Bahasa Portugis. Meskipun DistilBERT Multilingual mampu melakukan klasifikasi sentimen dengan baik, model tetap memiliki keterbatasan dalam memahami konteks lokal, slang, singkatan, maupun ekspresi khusus yang digunakan pelanggan.
+
+Hal ini dapat menyebabkan sebagian kecil hasil klasifikasi sentimen atau ekstraksi keyword tidak sepenuhnya merepresentasikan maksud asli pelanggan.
 
 ---
 
