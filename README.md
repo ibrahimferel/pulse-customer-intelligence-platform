@@ -850,7 +850,9 @@ Keyword negatif yang muncul di top-30, seperti `não recebi` (403x) dan `não go
 
 ## 11. Insight & Business Strategy
 
-PULSE mengintegrasikan berbagai pendekatan analitik untuk mengidentifikasi faktor-faktor utama yang memengaruhi retensi pelanggan, pengalaman pelanggan, dan performa bisnis. Hasil analisis kemudian diterjemahkan menjadi rekomendasi strategis yang mendukung pengambilan keputusan berbasis data dan berorientasi pada pelanggan.
+PULSE mengidentifikasi lima area bisnis utama yang memiliki pengaruh besar terhadap retensi pelanggan, pengalaman pelanggan, dan pertumbuhan bisnis secara berkelanjutan. Melalui integrasi customer analytics, behavioral analytics, customer experience analytics, dan Voice of Customer analytics. 
+
+PULSE membantu menghasilkan insight dan rekomendasi strategis yang dapat digunakan sebagai dasar pengambilan keputusan berbasis data dan berorientasi pada pelanggan.
 
 ---
 
