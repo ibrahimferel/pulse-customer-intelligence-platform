@@ -760,13 +760,13 @@ Pipeline NLP berbasis **BERT Family** untuk menganalisis suara pelanggan dari 40
 
 ### 10.3 Analisis Sentimen: DistilBERT Pipeline
 
-![alt text](assets/image-37.png)
+![alt text](assets/image-40.png)
 
 ---
 
 ### 10.4 Keyword Extraction: KeyBERT Pipeline
 
-![alt text](assets/image-37.png)
+![alt text](assets/image-41.png)
 
 ---
 
