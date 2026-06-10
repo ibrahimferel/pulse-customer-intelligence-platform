@@ -33,7 +33,7 @@
 10. [NLP: Keyword Extraction & Sentiment Score](#-10-nlp-keyword-extraction--sentiment-score-coming-soon)
 11. [Insight & Strategi Bisnis](#-11-insight--strategi-bisnis)
 12. [Executive Summary](#-12-executive-summary)
-13. [Penutup](#-13-penutup)
+13. [Challenges & Limitations](#-13-challenges--limitations)
 14. [Penutup](#-14-penutup)
 
 ---
