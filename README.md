@@ -22,7 +22,7 @@
 ## Table of Contents
 
 1. [Perkenalan](#-1-perkenalan)
-2. [Key Performance Index](#-2-key-performance-index)
+2. [Key Performance Indicator](#-2-key-performance-index)
 3. [Data Engineering Pipeline](#-3-data-engineering-pipeline)
 4. [Overview Dashboard Analytics](#-4-overview-dashboard-analytics)
 5. [Customer Performance Overview](#-5-customer-performance-overview)
@@ -89,11 +89,12 @@ Dataset yang digunakan adalah **Olist Brazil E-Commerce Dataset** dengan 7 file 
 
 ---
 
-## 2. Key Performance Index
+## 2. Key Performance Indicator
 
 KPI project ini dibagi ke dalam **6 Program Kerja** dengan total bobot program = 1.0.
 
-![alt text](assets/image-36.png)
+![alt text](assets/image-100.png)
+Link Source: [Key Performance Indicator](https://docs.google.com/spreadsheets/d/1Bz7AEaTHlDZYDfEu30yqHzeP4rHBaBkVi_PPuezqe4M/edit?usp=sharing)
 
 ### Rekap KPI
 
