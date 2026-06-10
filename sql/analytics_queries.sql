@@ -62,10 +62,10 @@ SELECT
     CASE
         WHEN monetary = 0           THEN '0 — gratis/cancel'
         WHEN monetary < 50          THEN '< 50'
-        WHEN monetary < 200         THEN '50–199'
-        WHEN monetary < 500         THEN '200–499'
-        WHEN monetary < 1000        THEN '500–999'
-        WHEN monetary < 3000        THEN '1K–2.9K'
+        WHEN monetary < 200         THEN '50-199'
+        WHEN monetary < 500         THEN '200-499'
+        WHEN monetary < 1000        THEN '500-999'
+        WHEN monetary < 3000        THEN '1K-2.9K'
         ELSE                             '3K+'
     END                                                  AS monetary_bucket,
     COUNT(DISTINCT customer_unique_id)                   AS total_customers,
@@ -81,8 +81,8 @@ SELECT
     CASE
         WHEN recency_days <= 30    THEN '≤ 30 hari (Hot)'
         WHEN recency_days <= 90    THEN '31-90 hari (Warm)'
-        WHEN recency_days <= 180   THEN '91–180 hari (Cooling)'
-        WHEN recency_days <= 365   THEN '181–365 hari (Cold)'
+        WHEN recency_days <= 180   THEN '91-180 hari (Cooling)'
+        WHEN recency_days <= 365   THEN '181-365 hari (Cold)'
         ELSE                            '> 365 hari (Dormant)'
     END                                                  AS recency_segment,
     COUNT(DISTINCT customer_unique_id)                   AS total_customers,
