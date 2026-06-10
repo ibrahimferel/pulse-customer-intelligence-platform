@@ -32,7 +32,9 @@
 9. [Geo & Seller Analytics](#-9-geo--seller-analytics)
 10. [NLP: Keyword Extraction & Sentiment Score](#-10-nlp-keyword-extraction--sentiment-score-coming-soon)
 11. [Insight & Strategi Bisnis](#-11-insight--strategi-bisnis)
-12. [Penutup](#-12-penutup)
+12. [Executive Summary](#-12-executive-summary)
+13. [Penutup](#-13-penutup)
+14. [Penutup](#-14-penutup)
 
 ---
 
@@ -1041,7 +1043,35 @@ Although geographic analytics is not the primary focus of customer-centric analy
 
 ---
 
-## 13. Penutup
+## 13. Challenges & Limitations
+
+Selama pengembangan PULSE, terdapat beberapa tantangan dan keterbatasan yang memengaruhi proses analisis maupun interpretasi hasil.
+
+### 13.1 Distribusi Data yang Tidak Seimbang
+
+Beberapa atribut pada dataset memiliki distribusi yang sangat tidak seimbang (skewed distribution). Sebagai contoh, sebagian besar pelanggan hanya melakukan satu kali pembelian, sementara hanya sebagian kecil yang melakukan pembelian berulang.
+
+Kondisi ini menyebabkan beberapa visualisasi menjadi kurang informatif karena kategori tertentu mendominasi keseluruhan distribusi data. Oleh karena itu, beberapa analisis memerlukan segmentasi tambahan agar pola yang lebih detail dapat terlihat.
+
+---
+
+### 13.2 Keterbatasan Metabase
+
+Metabase tidak selalu menyimpan state terakhir dashboard, termasuk filter, sorting, maupun konfigurasi eksplorasi data yang sedang digunakan.
+
+Akibatnya, proses analisis terkadang memerlukan konfigurasi ulang dashboard ketika sesi kerja baru dimulai.
+
+---
+
+### 13.3 Keterbatasan Analisis NLP
+
+Seluruh ulasan pelanggan ditulis dalam Bahasa Portugis. Meskipun DistilBERT Multilingual mampu melakukan klasifikasi sentimen dengan baik, model tetap memiliki keterbatasan dalam memahami konteks lokal, slang, singkatan, maupun ekspresi khusus yang digunakan pelanggan.
+
+Hal ini dapat menyebabkan sebagian kecil hasil klasifikasi sentimen atau ekstraksi keyword tidak sepenuhnya merepresentasikan maksud asli pelanggan.
+
+---
+
+## 14. Penutup
 
 Platform ini berhasil mengimplementasikan arsitektur **Big Data end-to-end** yang mencakup:
 
@@ -1053,34 +1083,6 @@ Platform ini berhasil mengimplementasikan arsitektur **Big Data end-to-end** yan
 - **Regex-based NLP** untuk complaint topic classification (6 kategori)
 - **CX Score** composite metric yang menggabungkan 4 dimensi pengalaman pelanggan
 - **NLP Sentiment** dengan DistilBERT + KeyBERT
-
----
-
-## 14. Challenges & Limitations
-
-Selama pengembangan PULSE, terdapat beberapa tantangan dan keterbatasan yang memengaruhi proses analisis maupun interpretasi hasil.
-
-### 14.1 Distribusi Data yang Tidak Seimbang
-
-Beberapa atribut pada dataset memiliki distribusi yang sangat tidak seimbang (skewed distribution). Sebagai contoh, sebagian besar pelanggan hanya melakukan satu kali pembelian, sementara hanya sebagian kecil yang melakukan pembelian berulang.
-
-Kondisi ini menyebabkan beberapa visualisasi menjadi kurang informatif karena kategori tertentu mendominasi keseluruhan distribusi data. Oleh karena itu, beberapa analisis memerlukan segmentasi tambahan agar pola yang lebih detail dapat terlihat.
-
----
-
-### 14.2 Keterbatasan Metabase
-
-Metabase tidak selalu menyimpan state terakhir dashboard, termasuk filter, sorting, maupun konfigurasi eksplorasi data yang sedang digunakan.
-
-Akibatnya, proses analisis terkadang memerlukan konfigurasi ulang dashboard ketika sesi kerja baru dimulai.
-
----
-
-### 14.3 Keterbatasan Analisis NLP
-
-Seluruh ulasan pelanggan ditulis dalam Bahasa Portugis. Meskipun DistilBERT Multilingual mampu melakukan klasifikasi sentimen dengan baik, model tetap memiliki keterbatasan dalam memahami konteks lokal, slang, singkatan, maupun ekspresi khusus yang digunakan pelanggan.
-
-Hal ini dapat menyebabkan sebagian kecil hasil klasifikasi sentimen atau ekstraksi keyword tidak sepenuhnya merepresentasikan maksud asli pelanggan.
 
 ---
 
